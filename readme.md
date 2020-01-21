@@ -1,4 +1,4 @@
-# DappHero - Proposal by Xivis
+# DappHero - DOM
 
 ### Attributes
 
@@ -48,17 +48,23 @@ export const features = {
 };
 ```
 
-## Further Ideas
+## Roadmap
 
-- Generate one single JavaScript bundle with React, ReactDOM and DappHero core using Webpack, Parcel or Rollup
-
-* Generate an script to deploy to [NPM](https://www.npmjs.com) and use [UNPKG](https://unpkg.com) as a CDN for NPM
-
-- Improve error logging [Sentry](https://sentry.io)
-
-* Support table for different UI/NoCode tools like WebFlow and Bubble
+- [ ] Analytics for data-attributes use
+- [ ] Get configuration object from API
+- [ ] Webflow tests with Cypress
+- [ ] Think on how to handle Placeholders and Loaders
+- [ ] Investigate bundler to use to generate the final bundle
+- [ ] Add deploy script for NPM, and add badges
+- [ ] Add link and badge for UNPKG, NPM CDN
+- [ ] Add Husky, to run Prettier and Jest on pre-commit
+- [ ] Check for repeated data-attributes
+- [ ] Add error logging using Sentry
+- [ ] Add in documnetation support table for different UI/NoCode tools like WebFlow and Bubble
 
 ## Separation of Concerns
+
+A improve over DappHero functionality will be to separate the Core into DOM and Core, since we will be able to handle al DOM related stuff in a more maintanable and cleaner way, and the Core will use those helpers and only handle the React and the features logic itself.
 
 ![Separation](/docs/Separation.png)
 
