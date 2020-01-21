@@ -25,7 +25,7 @@ We need to find a way that's easy to use for the designer/developer and at the s
 The active elements are those DOM elements that has the `data-dh-enabled="true"` attribute assigned.
 So the designer or developer using the NoCode tool can easily disable or enable the DappHero engine.
 
-### Features Configuration Map
+### Features Configuration
 
 This object will serve to run all validations needed against active elements.
 
@@ -47,6 +47,14 @@ export const features = {
   },
 };
 ```
+
+## Features Support
+
+- [x] Network
+- [ ] User
+- [ ] 3Box
+- [ ] Custom Contract
+- [ ] NFT
 
 ## Roadmap
 
