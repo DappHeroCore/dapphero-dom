@@ -1,6 +1,6 @@
 # DappHero - Proposal by Xivis
 
-## Attributes
+### Attributes
 
 We need to find a way that's easy to use for the designer/developer and at the same time faster and maintanable to parse through the DOM:
 
@@ -19,6 +19,38 @@ We need to find a way that's easy to use for the designer/developer and at the s
 * Use `dh-[property]` prefix to accidentally avoid writing some `data` attribute on the DOM and break CSS / JavaScript functionality.
 
 - Get data attributes using [dataset](https://caniuse.com/#feat=dataset) and parse through a **custom configuration object** to do some custom actions like: parsing, requiring, validiting, sanitizing and sorting.
+
+### Active Elements
+
+The active elements are those DOM elements that has the `data-dh-enabled="true"` attribute assigned.
+So the designer or developer using the NoCode tool can easily disable or enable the DappHero engine.
+
+### Features Configuration Map
+
+This object will serve to run all validations needed against active elements.
+
+Example:
+
+```typescript
+export const features = {
+  network: {
+    dataAttribute: `${FEATURE}-network`,
+    dataProperties: [
+      {
+        key: 'id',
+        attribute: `${PREFIX}-network-id`,
+        required: false,
+        validator: null,
+        position: null,
+      },
+    ],
+  },
+};
+```
+
+## Scaffolding
+
+## Arquitecture
 
 ## Further Ideas
 

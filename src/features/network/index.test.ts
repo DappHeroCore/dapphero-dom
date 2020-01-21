@@ -22,14 +22,25 @@ describe('Test Network dataProperties', () => {
     expect(hasAllProperties).toBe(true);
   });
 
-  test(`if all enabled validators are present`, () => {
+  test(`if all defined validators are a function or a RegExp`, () => {
     const requiredProperties = network.dataProperties
-      .map(property => (property.validation.enabled ? property : null))
+      .map(property => (property.validator ? property : null))
       .filter(Boolean);
 
     const checkValidator = validator => validator && (typeof validator === 'function' || validator instanceof RegExp);
-    const hasAllValidators = requiredProperties.every(({ validation: { validator } }) => checkValidator(validator));
+    const hasAllValidValidators = requiredProperties.every(({ validator }) => checkValidator(validator));
 
-    expect(hasAllValidators).toBe(true);
+    expect(hasAllValidValidators).toBe(true);
+  });
+
+  test(`if all defined positions are a valid integer`, () => {
+    const requiredProperties = network.dataProperties
+      .map(property => (property.position ? property : null))
+      .filter(Boolean);
+
+    const checkPosition = position => !isNaN(position) && Number.isInteger(position) && position >= 0;
+    const hasAllValidPositionIntegers = requiredProperties.every(({ position }) => checkPosition(position));
+
+    expect(hasAllValidPositionIntegers).toBe(true);
   });
 });

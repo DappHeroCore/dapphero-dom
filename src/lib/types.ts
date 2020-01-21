@@ -4,14 +4,8 @@ export type DataProperty = {
   key: string;
   attribute: string;
   required: boolean;
-  validation: {
-    enabled: boolean;
-    validator?: RegExp;
-  };
-  position: {
-    enabled: boolean;
-    index?: number;
-  };
+  validator?: RegExp;
+  position?: number;
 };
 
 export type Feature = {
@@ -25,6 +19,14 @@ export type Features = {
 };
 
 export type FeaturesEntries = [AvailableFeatures, Feature];
+
+export type PropertyPosition = {
+  [key in string]: number;
+};
+
+export type PropertiesPositions = {
+  [key in AvailableFeatures]?: PropertyPosition;
+};
 
 export type Property = {
   key: string;

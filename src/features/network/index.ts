@@ -8,40 +8,29 @@ export const network = {
       key: 'id',
       attribute: `${PREFIX}-network-id`,
       required: false,
-      validation: {
-        enabled: false,
-        validator: null,
-      },
-      position: {
-        enabled: false,
-        index: null,
-      },
+      validator: null,
+      position: null,
+    },
+    {
+      key: 'infoType',
+      attribute: `${PREFIX}-network-infoType`,
+      required: false,
+      validator: null,
+      position: null,
     },
     {
       key: 'name',
       attribute: `${PREFIX}-network-name`,
       required: false,
-      validation: {
-        enabled: false,
-        validator: null,
-      },
-      position: {
-        enabled: false,
-        index: null,
-      },
+      validator: null,
+      position: null,
     },
     {
       key: 'provider',
       attribute: `${PREFIX}-network-provider`,
       required: false,
-      validation: {
-        enabled: false,
-        validator: null,
-      },
-      position: {
-        enabled: false,
-        index: null,
-      },
+      validator: null,
+      position: null,
     },
   ],
 };
