@@ -2,21 +2,17 @@
 import { Features } from '~/lib/types';
 
 // Constants
-import { PREFIX, FEATURE } from '~/lib/constants';
-
-// Helpers
-import { createSelector } from '~/lib/utils';
+import { FEATURE } from '~/lib/constants';
 
 // Getters
-import { getAvailableFeatures, getFeaturesPropertiesPosition } from '~/lib/getters';
+import { getActiveElements, getAvailableFeatures, getFeaturesPropertiesPosition } from '~/lib/getters';
 
 // Features
 import { FEATURES } from '~/features/index';
 
-function getActiveElements(features: Features) {
-  // Get all DappHero enabled elements
-  const selector = createSelector(`${PREFIX}-enabled`, 'true');
-  const elements = Array.from(document.querySelectorAll(selector));
+// Core logic
+function parseActiveElements(features: Features) {
+  const activeElements = getActiveElements();
 
   // Get all available features
   const availableFeatures = getAvailableFeatures(features);
@@ -29,7 +25,7 @@ function getActiveElements(features: Features) {
 
   // Get an array of elements and their respective properties
   // Filter unallowed features that DappHero doesn't handle
-  const parsedElements = elements
+  const parsedElements = activeElements
     .map((element: HTMLElement) => {
       const feature = element.getAttribute(FEATURE);
       const isAllowedFeature = availableFeatures.some(availableKeyFeature => availableKeyFeature === feature);
@@ -82,10 +78,12 @@ function checkRequiredProperties(elements, features: Features) {
   });
 }
 
+// Run core logic
 function main() {
-  const els = getActiveElements(FEATURES);
-  console.log('TCL: main -> els', els);
-  checkRequiredProperties(els, FEATURES);
+  const parsedActiveElements = parseActiveElements(FEATURES);
+  checkRequiredProperties(parsedActiveElements, FEATURES);
+
+  console.log('parsedActiveElements', parsedActiveElements);
 }
 
 main();

@@ -1,6 +1,19 @@
 // Types
 import { Features, AvailableFeatures, FeaturesEntries, PropertiesPositions } from '~/lib/types';
 
+// Constants
+import { PREFIX } from '~/lib/constants';
+
+// Helpers
+import { createSelector } from '~/lib/utils';
+
+export const getActiveElements = () => {
+  const selector = createSelector(`${PREFIX}-enabled`, 'true');
+  const activeElements = Array.from(document.querySelectorAll(selector));
+
+  return activeElements;
+};
+
 export const getAvailableFeatures = (features: Features): AvailableFeatures[] => {
   return Object.entries(features).map((entry: FeaturesEntries) => entry[0]);
 };
