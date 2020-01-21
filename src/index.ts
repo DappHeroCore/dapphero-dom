@@ -1,3 +1,5 @@
+import sanitizeHtml from 'sanitize-html';
+
 // Types
 import { Features } from '~/lib/types';
 
@@ -39,7 +41,7 @@ function parseActiveElements(features: Features) {
       const properties = Object.entries(dataset)
         .map(([key, value]) => {
           const parsedKey = key.replace('dh', '').toLowerCase();
-          return { key: parsedKey, value };
+          return { key: parsedKey, value: sanitizeHtml(value) };
         })
         .filter(({ key }) => !dataAttributesToExclude.includes(key))
         .sort((a, b) => {

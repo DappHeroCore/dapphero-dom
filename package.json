@@ -16,6 +16,6 @@
     "build": "$(npm bin)/parcel build ./src/index.html"
   },
   "dependencies": {
-    "lib": "^4.0.5"
+    "sanitize-html": "^1.21.1"
   }
 }

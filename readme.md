@@ -29,7 +29,7 @@ So the designer or developer using the NoCode tool can easily disable or enable 
 
 This object will serve to run all validations needed against active elements.
 
-Example:
+Example with only one feature "network" and only one property "id":
 
 ```typescript
 export const features = {
@@ -48,10 +48,6 @@ export const features = {
 };
 ```
 
-## Scaffolding
-
-## Arquitecture
-
 ## Further Ideas
 
 - Generate one single JavaScript bundle with React, ReactDOM and DappHero core using Webpack, Parcel or Rollup
@@ -61,3 +57,11 @@ export const features = {
 - Improve error logging [Sentry](https://sentry.io)
 
 * Support table for different UI/NoCode tools like WebFlow and Bubble
+
+## Separation of Concerns
+
+![Separation](/docs/Separation.png)
+
+## Scaffolding
+
+![Scaffolding](/docs/Scaffolding.png)
