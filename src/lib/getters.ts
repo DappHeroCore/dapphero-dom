@@ -16,7 +16,7 @@ export const getAvailableFeatures = (features: Features): AvailableFeatures[] =>
 export const getFeaturesPropertiesPosition = (features: Features): PropertiesPositions => {
   return Object.entries(features).reduce((acc, feature) => {
     const keyPositions = feature[1].dataProperties.reduce(
-      (acc, property) => ({ ...acc, [property.key]: property.position }),
+      (acc, property) => ({ ...acc, [property.id]: property.position }),
       {}
     );
     return { ...acc, [feature[0]]: keyPositions };

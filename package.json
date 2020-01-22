@@ -19,6 +19,7 @@
     "build": "$(npm bin)/parcel build ./src/index.html"
   },
   "dependencies": {
+    "lodash.isempty": "^4.4.0",
     "sanitize-html": "^1.21.1"
   }
 }

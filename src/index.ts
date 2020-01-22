@@ -4,13 +4,16 @@ import sanitizeHtml from 'sanitize-html';
 import { Features } from '~/lib/types';
 
 // Constants
-import { FEATURE } from '~/lib/constants';
+import { DATA_FEATURE } from '~/lib/constants';
 
 // Getters
 import { getActiveElements, getAvailableFeatures, getFeaturesPropertiesPosition } from '~/lib/getters';
 
 // Features
 import { FEATURES } from '~/features/index';
+
+// Utils
+import { getElementDataset, getAttributeMode, sortProperties } from '~/lib/utils';
 
 // Core logic
 function parseActiveElements(features: Features) {
@@ -29,30 +32,63 @@ function parseActiveElements(features: Features) {
   // Filter unallowed features that DappHero doesn't handle
   const parsedElements = activeElements
     .map((element: HTMLElement) => {
-      const feature = element.getAttribute(FEATURE);
-      const isAllowedFeature = availableFeatures.some(availableKeyFeature => availableKeyFeature === feature);
+      const dataset = getElementDataset(element);
+      const attributeMode = getAttributeMode(dataset);
 
-      if (!isAllowedFeature) {
-        return console.error(`Feature "${feature}" not allowed`);
+      if (attributeMode === 'data') {
+        const feature = element.getAttribute(DATA_FEATURE);
+
+        if (!feature) {
+          return console.error(`Feature attribute was not added to the element`);
+        }
+
+        const isAllowedFeature = availableFeatures.some(availableKeyFeature => availableKeyFeature === feature);
+
+        if (!isAllowedFeature) {
+          return console.error(`Feature "${feature}" not allowed`);
+        }
+
+        const properties = Object.entries(dataset)
+          .map(([key, value]) => {
+            const parsedKey = key.replace('dh', '').toLowerCase();
+            return { key: parsedKey, value: sanitizeHtml(value) };
+          })
+          .filter(({ key }) => !dataAttributesToExclude.includes(key));
+
+        const sortedProperties = sortProperties(properties, featuresPropertiesPositions, feature);
+
+        return { element, feature, properties: sortedProperties, attributeMode };
       }
 
-      // Parse dataset to get an array of key/values, and sort properties by feature definition
-      const dataset = Object.assign({}, element.dataset);
-      const properties = Object.entries(dataset)
-        .map(([key, value]) => {
-          const parsedKey = key.replace('dh', '').toLowerCase();
-          return { key: parsedKey, value: sanitizeHtml(value) };
-        })
-        .filter(({ key }) => !dataAttributesToExclude.includes(key))
-        .sort((a, b) => {
-          const featurePropertiesPositions = featuresPropertiesPositions[feature];
-          const aPosition = featurePropertiesPositions[a.key];
-          const bPosition = featurePropertiesPositions[b.key];
+      if (attributeMode === 'id') {
+        const idValue = element.getAttribute('id');
+        const values = idValue.split(',');
 
-          return aPosition - bPosition;
-        });
+        const feature = values.find(value => value.includes('feature'));
+        if (!feature) {
+          return console.error(`Feature property was not added to the element`);
+        }
 
-      return { element, feature, properties };
+        const [, featureValue = ''] = feature.split(':');
+        const isAllowedFeature = availableFeatures.some(availableKeyFeature => availableKeyFeature === featureValue);
+
+        if (!isAllowedFeature) {
+          return console.error(`Feature "${feature}" not allowed`);
+        }
+
+        const properties = values
+          .flatMap(str => {
+            if (!str.includes('property')) return null;
+
+            const [key, value] = str.replace('property:', '').split('=');
+            return { key, value: sanitizeHtml(value) };
+          })
+          .filter(Boolean);
+
+        const sortedProperties = sortProperties(properties, featuresPropertiesPositions, featureValue);
+
+        return { element, feature: featureValue, properties: sortedProperties, attributeMode };
+      }
     })
     .filter(Boolean);
 
@@ -63,7 +99,7 @@ function checkRequiredProperties(elements, features: Features) {
   // Get all data properties keys that are required
   const requiredKeys = Object.entries(features).flatMap(([, value]) => {
     return value.dataProperties
-      .map(dataProperty => (dataProperty.required === true ? dataProperty.key : null))
+      .map(dataProperty => (dataProperty.required === true ? dataProperty.id : null))
       .filter(Boolean);
   });
 

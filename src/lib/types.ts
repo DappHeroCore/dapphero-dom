@@ -1,7 +1,7 @@
 export type AvailableFeatures = 'network' | 'user' | 'customContract' | 'threebox' | 'nft';
 
 export type DataProperty = {
-  key: string;
+  id: string;
   attribute: string;
   required: boolean;
   validator?: RegExp;
@@ -9,6 +9,7 @@ export type DataProperty = {
 };
 
 export type Feature = {
+  id: String;
   dataAttribute: String;
   dataProperties: DataProperty[];
 };
@@ -29,7 +30,7 @@ export type PropertiesPositions = {
 };
 
 export type Property = {
-  key: string;
+  id: string;
   value: string;
 };
 
@@ -37,4 +38,5 @@ export type ActiveElement = {
   element: HTMLElement;
   properties: Property[];
   feature: AvailableFeatures;
+  attributeMode: 'id' | 'data';
 };

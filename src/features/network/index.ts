@@ -1,33 +1,34 @@
 // Constants
-import { PREFIX, FEATURE } from '~/lib/constants';
+import { DATA_PREFIX, DATA_FEATURE } from '~/lib/constants';
 
 export const network = {
-  dataAttribute: `${FEATURE}-network`,
+  id: 'network',
+  dataAttribute: `${DATA_FEATURE}-network`,
   dataProperties: [
     {
-      key: 'id',
-      attribute: `${PREFIX}-network-id`,
+      id: 'id',
+      attribute: `${DATA_PREFIX}-network-id`,
       required: false,
       validator: null,
       position: null,
     },
     {
-      key: 'infotype',
-      attribute: `${PREFIX}-network-info-type`,
+      id: 'infotype',
+      attribute: `${DATA_PREFIX}-network-info-type`,
       required: false,
       validator: null,
       position: null,
     },
     {
-      key: 'name',
-      attribute: `${PREFIX}-network-name`,
+      id: 'name',
+      attribute: `${DATA_PREFIX}-network-name`,
       required: false,
       validator: null,
       position: null,
     },
     {
-      key: 'provider',
-      attribute: `${PREFIX}-network-provider`,
+      id: 'provider',
+      attribute: `${DATA_PREFIX}-network-provider`,
       required: false,
       validator: null,
       position: null,

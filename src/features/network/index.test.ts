@@ -1,11 +1,11 @@
 // Constants
-import { FEATURE } from '~/lib/constants';
+import { DATA_FEATURE } from '~/lib/constants';
 
 // Feature
 import { network } from './index';
 
 describe('Test Network dataAttribute', () => {
-  const dataAttribute = `${FEATURE}-network`;
+  const dataAttribute = `${DATA_FEATURE}-network`;
 
   test(`if feature data-attribute is ${dataAttribute}`, () => {
     expect(network.dataAttribute).toBe(dataAttribute);
@@ -16,7 +16,7 @@ describe('Test Network dataProperties', () => {
   const properties = ['id', 'name', 'infotype', 'provider'];
 
   test(`if all properties are defined`, () => {
-    const networkProperties = network.dataProperties.map(({ key }) => key);
+    const networkProperties = network.dataProperties.map(({ id }) => id);
     const hasAllProperties = properties.every(property => networkProperties.includes(property));
 
     expect(hasAllProperties).toBe(true);

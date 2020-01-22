@@ -1,5 +1,5 @@
 export const DH = `dh`;
 
-export const PREFIX = `data-${DH}`;
+export const DATA_PREFIX = `data-${DH}`;
 
-export const FEATURE = `${PREFIX}-feature`;
+export const DATA_FEATURE = `${DATA_PREFIX}-feature`;
