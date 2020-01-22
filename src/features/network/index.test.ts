@@ -13,7 +13,7 @@ describe('Test Network dataAttribute', () => {
 });
 
 describe('Test Network dataProperties', () => {
-  const properties = ['id', 'name', 'provider'] as const;
+  const properties = ['id', 'name', 'infotype', 'provider'];
 
   test(`if all properties are defined`, () => {
     const networkProperties = network.dataProperties.map(({ key }) => key);

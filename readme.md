@@ -1,5 +1,95 @@
 # DappHero - DOM
 
+### Commands
+
+| Action     | Command        |
+| ---------- | -------------- |
+| Developing | `yarn dev`     |
+| Testing    | `yarn test`    |
+| Building   | `yarn build`   |
+| Publishing | `yarn publish` |
+
+### Installing
+
+To install simple run:
+
+```bash
+> yarn add @xivis/dapphero-dom
+```
+
+Then import your dependencies:
+
+```javascript
+import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-dom';
+```
+
+### API
+
+| Method                  | Params         | Returns        | Description                                          |
+| ----------------------- | -------------- | -------------- | ---------------------------------------------------- |
+| parseActiveElements     | empty          | activeElements | Get all DappHero active elements on the DOM          |
+| checkRequiredProperties | activeElements | void           | Check if all required properties has values assigned |
+
+### How to Use for UI/NoCode Tools (WIP)
+
+### How to Use for Developers
+
+1. Add the attribute `data-dh-enabled` with value `true` in order to activate DappHero on that particular element.
+
+```html
+<div data-dh-enabled="true">...</div>
+```
+
+2. Add the attribute `data-dh-attribute-mode` with value `data` in order to use data-attributes instead of `id` since the syntax it's cleaner.
+
+```html
+<div data-dh-enabled="true" data-dh-tag-mode="data">...</div>
+```
+
+3. Add the tag `data-dh-feature` and the feature you want on the same element.
+   The possible feature values are: `network`, `user`, `3box`, `customContract`, `nft`
+
+```html
+<div data-dh-enabled="true" data-dh-tag-mode="data" data-dh-feature="network">...</div>
+```
+
+4. Add the properties you want to set or get in the chosen feature
+   To follow this step please refer to the feature particular documentation: [Network](##Network)
+
+## Network
+
+- Get ID:
+
+```html
+<div data-dh-enabled="true" data-dh-feature="network" data-dh-id>
+  ...
+</div>
+```
+
+- Get Info Type:
+
+```html
+<div data-dh-enabled="true" data-dh-feature="network" data-dh-info-type>
+  ...
+</div>
+```
+
+- Get Name:
+
+```html
+<div data-dh-enabled="true" data-dh-feature="network" data-dh-name>
+  ...
+</div>
+```
+
+- Get Provider:
+
+```html
+<div data-dh-enabled="true" data-dh-feature="network" data-dh-provider>
+  ...
+</div>
+```
+
 ### Attributes
 
 We need to find a way that's easy to use for the designer/developer and at the same time faster and maintanable to parse through the DOM:

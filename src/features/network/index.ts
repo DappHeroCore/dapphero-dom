@@ -12,8 +12,8 @@ export const network = {
       position: null,
     },
     {
-      key: 'infoType',
-      attribute: `${PREFIX}-network-infoType`,
+      key: 'infotype',
+      attribute: `${PREFIX}-network-info-type`,
       required: false,
       validator: null,
       position: null,
