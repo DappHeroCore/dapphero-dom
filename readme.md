@@ -46,7 +46,7 @@ Keep in mind that working with the ID mode you need to add the keys separated by
 <div id="enabled:false"></div>
 ```
 
-2. Add the key `feature`, a semicolon `:`, and one of the following features: `network`, `user`, `3box`, `customContract`, `nft`
+2. Add the key `feature`, a semicolon `:`, and one of the following features : `network`, `user`, `3box`, `customContract`, `nft`
 
 Example:
 
