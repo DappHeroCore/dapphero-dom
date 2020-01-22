@@ -34,34 +34,75 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 
 ### How to Use for Developers
 
-1. Add the attribute `data-dh-enabled` with value `true` in order to activate DappHero on that particular element.
+Pick just one of the following modes, `id` or `data`:
+
+#### ID Mode (WIP)
+
+Keep in mind that working with the ID mode you need to add the keys separated by a comma `,` and **don't remove** the `dh` value in it.
+
+1. **Optionally:** Add the key `enabled:false` (default: true) in order to deactivate DappHero engine on that particular element.
 
 ```html
-<div data-dh-enabled="true">...</div>
+<div id="enabled:false"></div>
 ```
 
-2. Add the attribute `data-dh-attribute-mode` with value `data` in order to use data-attributes instead of `id` since the syntax it's cleaner.
+2. Add the key `feature`, a semicolon `:`, and one of the following features: `network`, `user`, `3box`, `customContract`, `nft`
+
+Example:
 
 ```html
-<div data-dh-enabled="true" data-dh-tag-mode="data">...</div>
+<div id="feature:network">...</div>
 ```
 
-3. Add the tag `data-dh-feature` and the feature you want on the same element.
+3. Add the properties you want to set or get in the chosen feature To follow this step please refer to the feature particular documentation:
+   - [Network](##Network)
+   - [User](##User)
+   - [3Box](##3Box)
+   - [Custom Contract](##Contract)
+   - [NFT](##NFT)
+
+Example:
+
+```html
+<div id="feature:network,property:id">...</div>
+```
+
+#### Data Mode
+
+1. **Optionally:** Add the attribute `data-dh-enabled` (default: true) with value `false` in order to
+   deactivate DappHero engine on that particular element.
+
+```html
+<div data-dh-enabled="false">...</div>
+```
+
+2. Add the tag `data-dh-feature` and the feature you want on the same element.
    The possible feature values are: `network`, `user`, `3box`, `customContract`, `nft`
 
 ```html
-<div data-dh-enabled="true" data-dh-tag-mode="data" data-dh-feature="network">...</div>
+<div data-dh-enabled="true" data-dh-feature="network">...</div>
 ```
 
-4. Add the properties you want to set or get in the chosen feature
-   To follow this step please refer to the feature particular documentation: [Network](##Network)
+3. Add the properties you want to set or get in the chosen feature
+   To follow this step please refer to the feature particular documentation:
+   - [Network](##Network)
+   - [User](##User)
+   - [3Box](##3Box)
+   - [Custom Contract](##Contract)
+   - [NFT](##NFT)
+
+Example:
+
+```html
+<div data-dh-enabled="true" data-dh-feature="network" data-dh-id>...</div>
+```
 
 ## Network
 
 - Get ID:
 
 ```html
-<div data-dh-enabled="true" data-dh-feature="network" data-dh-id>
+<div id="dh" data-dh-feature="network" data-dh-id>
   ...
 </div>
 ```
@@ -69,7 +110,7 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 - Get Info Type:
 
 ```html
-<div data-dh-enabled="true" data-dh-feature="network" data-dh-info-type>
+<div id="dh" data-dh-feature="network" data-dh-info-type>
   ...
 </div>
 ```
@@ -77,7 +118,7 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 - Get Name:
 
 ```html
-<div data-dh-enabled="true" data-dh-feature="network" data-dh-name>
+<div id="dh" data-dh-feature="network" data-dh-name>
   ...
 </div>
 ```
@@ -85,10 +126,18 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 - Get Provider:
 
 ```html
-<div data-dh-enabled="true" data-dh-feature="network" data-dh-provider>
+<div id="dh" data-dh-feature="network" data-dh-provider>
   ...
 </div>
 ```
+
+### User
+
+### 3Box
+
+### Contract
+
+### NFT
 
 ### Attributes
 
