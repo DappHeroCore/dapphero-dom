@@ -2,15 +2,10 @@
 import { Features, AvailableFeatures, FeaturesEntries, PropertiesPositions } from '~/lib/types';
 
 // Constants
-import { PREFIX } from '~/lib/constants';
-
-// Helpers
-import { createAttributeSelector } from '~/lib/utils';
+import { DH } from '~/lib/constants';
 
 export const getActiveElements = () => {
-  const selector = createAttributeSelector(`${PREFIX}-enabled`, 'true');
-  const activeElements = Array.from(document.querySelectorAll(selector));
-
+  const activeElements = Array.from(document.querySelectorAll(`[id*="${DH}"]`));
   return activeElements;
 };
 

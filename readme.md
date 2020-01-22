@@ -34,27 +34,33 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 
 ### How to Use for Developers
 
-Pick just one of the following modes, `id` or `data`:
+Pick only one of the following modes, `id` or `data`:
 
 #### ID Mode (WIP)
 
-Keep in mind that working with the ID mode you need to add the keys separated by a comma `,` and **don't remove** the `dh` value in it.
+Keep in mind that working with the ID mode you need to add the keys separated by a comma `,`.
 
-1. **Optionally:** Add the key `enabled:false` (default: true) in order to deactivate DappHero engine on that particular element.
+1. Add the attribute `id` with the value `dh`:
 
 ```html
-<div id="enabled:false"></div>
+<div id="dh">...</div>
 ```
 
-2. Add the key `feature`, a semicolon `:`, and one of the following features : `network`, `user`, `3box`, `customContract`, `nft`
+2. **Optionally:** Add the key `enabled:false` (default: true) in order to deactivate DappHero engine on that particular element.
+
+```html
+<div id="dh,enabled:false"></div>
+```
+
+3. Add the key `feature`, a semicolon `:`, and one of the following features: `network`, `user`, `3box`, `customContract`, `nft`
 
 Example:
 
 ```html
-<div id="feature:network">...</div>
+<div id="dh,feature:network">...</div>
 ```
 
-3. Add the properties you want to set or get in the chosen feature To follow this step please refer to the feature particular documentation:
+4. Add the properties you want to set or get in the chosen feature To follow this step please refer to the feature particular documentation:
    - [Network](##Network)
    - [User](##User)
    - [3Box](##3Box)
@@ -64,26 +70,32 @@ Example:
 Example:
 
 ```html
-<div id="feature:network,property:id">...</div>
+<div id="dh,feature:network,property:id">...</div>
 ```
 
 #### Data Mode
 
-1. **Optionally:** Add the attribute `data-dh-enabled` (default: true) with value `false` in order to
+1. Add the attribute `id` with the value `dh`:
+
+```html
+<div id="dh">...</div>
+```
+
+2. **Optionally:** Add the attribute `data-dh-enabled` (default: true) with value `false` in order to
    deactivate DappHero engine on that particular element.
 
 ```html
-<div data-dh-enabled="false">...</div>
+<div id="dh" data-dh-enabled="false">...</div>
 ```
 
-2. Add the tag `data-dh-feature` and the feature you want on the same element.
+3. Add the tag `data-dh-feature` and the feature you want on the same element.
    The possible feature values are: `network`, `user`, `3box`, `customContract`, `nft`
 
 ```html
-<div data-dh-enabled="true" data-dh-feature="network">...</div>
+<div id="dh" data-dh-feature="network">...</div>
 ```
 
-3. Add the properties you want to set or get in the chosen feature
+4. Add the properties you want to set or get in the chosen feature
    To follow this step please refer to the feature particular documentation:
    - [Network](##Network)
    - [User](##User)
