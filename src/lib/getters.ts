@@ -5,10 +5,10 @@ import { Features, AvailableFeatures, FeaturesEntries, PropertiesPositions } fro
 import { PREFIX } from '~/lib/constants';
 
 // Helpers
-import { createSelector } from '~/lib/utils';
+import { createAttributeSelector } from '~/lib/utils';
 
 export const getActiveElements = () => {
-  const selector = createSelector(`${PREFIX}-enabled`, 'true');
+  const selector = createAttributeSelector(`${PREFIX}-enabled`, 'true');
   const activeElements = Array.from(document.querySelectorAll(selector));
 
   return activeElements;
