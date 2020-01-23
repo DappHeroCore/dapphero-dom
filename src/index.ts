@@ -7,7 +7,7 @@ import { Features } from '~/lib/types';
 import { DATA_FEATURE } from '~/lib/constants';
 
 // Getters
-import { getActiveElements, getAvailableFeatures, getFeaturesPropertiesPosition } from '~/lib/getters';
+import { getActiveElements, getAvailableFeatures, getFeaturesPropertiesPosition, getAvailableProperties } from '~/lib/getters';
 
 // Features
 import { FEATURES } from '~/features/index';
@@ -21,6 +21,9 @@ function parseActiveElements(features: Features) {
 
   // Get all available features
   const availableFeatures = getAvailableFeatures(features);
+
+  // Get all available features properties
+  const availableFeaturesProperties = getAvailableProperties(features);
 
   // Get all features properties positions
   const featuresPropertiesPositions = getFeaturesPropertiesPosition(features);
@@ -53,7 +56,17 @@ function parseActiveElements(features: Features) {
             const parsedKey = key.replace('dh', '').toLowerCase();
             return { key: parsedKey, value: sanitizeHtml(value) };
           })
-          .filter(({ key }) => !dataAttributesToExclude.includes(key));
+          .filter(({ key }) =>  !dataAttributesToExclude.includes(key))
+          .filter(({ key }) => {
+            const availableFeatureProperties = availableFeaturesProperties[feature]
+            const isPropertyAllowed = availableFeatureProperties.includes(key)
+
+            if (!isPropertyAllowed) {
+              console.error(`Property "${key}" is not allowed on Feature "${feature}"`)
+            }
+
+            return isPropertyAllowed
+          })
 
         const sortedProperties = sortProperties(properties, featuresPropertiesPositions, feature);
 
@@ -80,10 +93,20 @@ function parseActiveElements(features: Features) {
           .flatMap(str => {
             if (!str.includes('property')) return null;
 
-            const [key, value] = str.replace('property:', '').split('=');
+            const [key, value = ''] = str.replace('property:', '').split('=');
             return { key, value: sanitizeHtml(value) };
           })
-          .filter(Boolean);
+          .filter(Boolean)
+          .filter(({ key }) => {
+            const availableFeatureProperties = availableFeaturesProperties[featureValue]
+            const isPropertyAllowed = availableFeatureProperties.includes(key)
+
+            if (!isPropertyAllowed) {
+              console.error(`Property "${key}" is not allowed on Feature "${feature}"`)
+            }
+
+            return isPropertyAllowed
+          })
 
         const sortedProperties = sortProperties(properties, featuresPropertiesPositions, featureValue);
 

@@ -8,11 +8,17 @@
   </head>
 
   <body>
-    <div id="dh" data-dh-feature="network" data-dh-id="" data-dh-name="leo" data-dh-provider="bla">
+    <!-- Data mode -->
+
+    <!-- Using Feature network with it's properties: id, infotype, name, provider -->
+    <div id="dh" data-dh-feature="network" data-dh-id="" data-dh-info-type="" data-dh-name="" data-dh-provider="">
       ...
     </div>
 
-    <div id="dh,feature:network,property:id=,property:name=">...</div>
+    <!-- ID mode -->
+
+    <!-- Using Feature network with it's properties: id, infotype, name, provider -->
+    <div id="dh,feature:network,property:id,property:infotype,property:name,property:provider">...</div>
 
     <script src="./index.ts"></script>
   </body>

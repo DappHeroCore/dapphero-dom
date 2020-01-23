@@ -40,3 +40,7 @@ export type ActiveElement = {
   feature: AvailableFeatures;
   attributeMode: 'id' | 'data';
 };
+
+export type AvailabeProperties = {
+  [key in AvailableFeatures]?: Pick<Property,'id'>;
+}
