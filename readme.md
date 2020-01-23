@@ -34,7 +34,8 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 
 ### How to Use for Developers
 
-Pick only one of the following modes, `id` or `data`:
+Pick only one of the following modes, `id` or `data`.
+Data Mode it's more recommended since it's cleaner and readable.
 
 #### ID Mode (WIP)
 
@@ -111,39 +112,182 @@ Example:
 
 ## Network
 
-- Get ID:
+### Properties
 
-```html
-<div id="dh" data-dh-feature="network" data-dh-id>
-  ...
-</div>
-```
+- **Get ID**
 
-- Get Info Type:
+  - ID Mode
 
-```html
-<div id="dh" data-dh-feature="network" data-dh-info-type>
-  ...
-</div>
-```
+  ```html
+  <div id="dh,feature:network,property:id">
+    ...
+  </div>
+  ```
 
-- Get Name:
+  - Data Mode
 
-```html
-<div id="dh" data-dh-feature="network" data-dh-name>
-  ...
-</div>
-```
+  ```html
+  <div id="dh" data-dh-feature="network" data-dh-property-id>
+    ...
+  </div>
+  ```
 
-- Get Provider:
+- **Get Info Type**
 
-```html
-<div id="dh" data-dh-feature="network" data-dh-provider>
-  ...
-</div>
-```
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:network,property:infotype">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="network" data-dh-property-info-type>
+    ...
+  </div>
+  ```
+
+- **Get Name**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:network,property:name">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="network" data-dh-property-name>
+    ...
+  </div>
+  ```
+
+- **Get Provider:**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:network,property:provider">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="network" data-dh-property-provider>
+    ...
+  </div>
+  ```
+
+#### Modifiers
+
+Network feature has no modifiers available.
 
 ### User
+
+#### Properties
+
+- **Get Address**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:user,property:address">
+    ...
+  </div>
+  ```
+
+- Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="user" data-dh-property-address>
+    ...
+  </div>
+  ```
+
+- **Get Balance**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:user,property:balance">
+    ...
+  </div>
+  ```
+
+- Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="user" data-dh-property-balance>
+    ...
+  </div>
+  ```
+
+#### Modifiers
+
+- **Unit modifier**
+  Possible values are : `wei`, `ether`
+
+  - ID Mode
+
+    ```html
+    <div id="dh,feature:user,property:balance,modifier:unit=wei">
+      ...
+    </div>
+    ```
+
+  - Data Mode
+
+    ```html
+    <div id="dh" data-dh-feature="user" data-dh-property-balance data-dh-modifier-units="wei">
+      ...
+    </div>
+    ```
+
+- **Decimals modifier**
+  Possible values is any `positive integer`
+
+  - ID Mode
+
+    ```html
+    <div id="dh,feature:user,property:balance,modifier:decimals=4">
+      ...
+    </div>
+    ```
+
+  - Data Mode
+
+    ```html
+    <div id="dh" data-dh-feature="user" data-dh-property-balance data-dh-modifier-units="wei">
+      ...
+    </div>
+    ```
+
+- **Display modifier**
+  Possible values are : `short`, `full`
+
+  - ID Mode
+
+    ```html
+    <div id="dh,feature:user,property:address,modifier:display=short">
+      ...
+    </div>
+    ```
+
+  - Data Mode
+
+    ```html
+    <div id="dh" data-dh-feature="user" data-dh-property-address data-dh-modifier-display="short">
+      ...
+    </div>
+    ```
 
 ### 3Box
 
@@ -202,7 +346,7 @@ export const features = {
 ## Features Support
 
 - [x] Network
-- [ ] User
+- [x] User
 - [ ] 3Box
 - [ ] Custom Contract
 - [ ] NFT
