@@ -2,12 +2,16 @@
 
 ### Commands
 
-| Action     | Command        |
-| ---------- | -------------- |
-| Developing | `yarn dev`     |
-| Testing    | `yarn test`    |
-| Building   | `yarn build`   |
-| Publishing | `yarn publish` |
+| Action     | Command        | Info                  |
+| ---------- | -------------- | --------------------- |
+| Developing | `yarn dev`     | http://localhost:1234 |
+| Testing    | `yarn test`    | Jest in watch mode    |
+| Building   | `yarn build`   | Build for production  |
+| Publishing | `yarn publish` | Publish to NPM        |
+
+### Developing
+
+Just run `yarn dev` and go to `/src/index.html` and you will have several feature examples, you can play removing and editing features, properties and modifiers.
 
 ### Installing
 
@@ -291,6 +295,156 @@ Network feature has no modifiers available.
 
 ### 3Box
 
+### Properties
+
+- **Get Name**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:name">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-name>
+    ...
+  </div>
+  ```
+
+- **Get Location**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:location">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-location>
+    ...
+  </div>
+  ```
+
+- **Get Website**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:website">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-website>
+    ...
+  </div>
+  ```
+
+- **Get Emoji**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:emoji">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-emoji>
+    ...
+  </div>
+  ```
+
+- **Get Job**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:job">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-job>
+    ...
+  </div>
+  ```
+
+- **Get Description**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:description">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-description>
+    ...
+  </div>
+  ```
+
+- **Get Image**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:image">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-image>
+    ...
+  </div>
+  ```
+
+- **Get Hover**
+
+  - ID Mode
+
+  ```html
+  <div id="dh,feature:threebox,property:hover">
+    ...
+  </div>
+  ```
+
+  - Data Mode
+
+  ```html
+  <div id="dh" data-dh-feature="threebox" data-dh-property-hover>
+    ...
+  </div>
+  ```
+
+#### Modifiers
+
+Network feature has no modifiers available.
+
 ### Contract
 
 ### NFT
@@ -347,7 +501,7 @@ export const features = {
 
 - [x] Network
 - [x] User
-- [ ] 3Box
+- [x] 3Box
 - [ ] Custom Contract
 - [ ] NFT
 

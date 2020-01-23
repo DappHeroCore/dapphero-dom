@@ -11,7 +11,6 @@ export const user = {
       required: false,
       validator: null,
       position: null,
-      modifiers: [],
     },
     {
       id: 'balance',

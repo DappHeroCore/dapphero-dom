@@ -147,7 +147,7 @@ function parseActiveElements(features: Features) {
         const isAllowedFeature = availableFeatures.some((availableKeyFeature) => availableKeyFeature === featureValue);
 
         if (!isAllowedFeature) {
-          return console.error(`Feature "${feature}" not allowed`);
+          return console.error(`Feature "${featureValue}" not allowed`);
         }
 
         const properties = values
@@ -163,7 +163,7 @@ function parseActiveElements(features: Features) {
             const isPropertyAllowed = availableFeatureProperties.includes(key);
 
             if (!isPropertyAllowed) {
-              console.error(`Property "${key}" is not allowed on Feature "${feature}"`);
+              console.error(`Property "${key}" is not allowed on Feature "${featureValue}"`);
             }
 
             return isPropertyAllowed;
@@ -188,7 +188,7 @@ function parseActiveElements(features: Features) {
             const isModifier = availableModifiers.modifiers.includes(key);
 
             if (!isModifier) {
-              return console.error(`Modifier "${key}" is not allowed on Feature "${feature}"`);
+              return console.error(`Modifier "${key}" is not allowed on Feature "${featureValue}"`);
             }
 
             const validator = availableModifiers.validators[key];
