@@ -8,9 +8,17 @@ export type DataProperty = {
   position?: number;
 };
 
+export type DataModifier = {
+  id: string;
+  attribute: string;
+  defaultValue: string;
+  validator?: (val: string) => boolean;
+};
+
 export type Feature = {
   id: String;
   dataAttribute: String;
+  dataModifiers: DataModifier[];
   dataProperties: DataProperty[];
 };
 
@@ -41,6 +49,6 @@ export type ActiveElement = {
   attributeMode: 'id' | 'data';
 };
 
-export type AvailabeProperties = {
-  [key in AvailableFeatures]?: Pick<Property,'id'>;
-}
+export type AvailableProperties = {
+  [key in AvailableFeatures]?: Pick<Property, 'id'>;
+};

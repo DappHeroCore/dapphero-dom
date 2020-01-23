@@ -2,28 +2,28 @@
 import { DATA_FEATURE } from '~/lib/constants';
 
 // Feature
-import { network } from './index';
+import { user } from './index';
 
-describe('Test Network dataAttribute', () => {
-  const dataAttribute = `${DATA_FEATURE}-network`;
+describe('Test User dataAttribute', () => {
+  const dataAttribute = `${DATA_FEATURE}-user`;
 
   test(`if feature data-attribute is ${dataAttribute}`, () => {
-    expect(network.dataAttribute).toBe(dataAttribute);
+    expect(user.dataAttribute).toBe(dataAttribute);
   });
 });
 
-describe('Test Network dataProperties', () => {
-  const properties = ['id', 'name', 'infotype', 'provider'];
+describe('Test User dataProperties', () => {
+  const properties = ['address', 'balance'];
 
   test(`if all properties are defined`, () => {
-    const networkProperties = network.dataProperties.map(({ id }) => id);
-    const hasAllProperties = properties.every((property) => networkProperties.includes(property));
+    const userProperties = user.dataProperties.map(({ id }) => id);
+    const hasAllProperties = properties.every((property) => userProperties.includes(property));
 
     expect(hasAllProperties).toBe(true);
   });
 
   test(`if all defined validators are a function or a RegExp`, () => {
-    const requiredProperties = network.dataProperties
+    const requiredProperties = user.dataProperties
       .map((property) => (property.validator ? property : null))
       .filter(Boolean);
 
@@ -34,7 +34,7 @@ describe('Test Network dataProperties', () => {
   });
 
   test(`if all defined positions are a valid integer`, () => {
-    const requiredProperties = network.dataProperties
+    const requiredProperties = user.dataProperties
       .map((property) => (property.position ? property : null))
       .filter(Boolean);
 
@@ -45,8 +45,13 @@ describe('Test Network dataProperties', () => {
   });
 });
 
-describe('Test Network dataModifiers', () => {
-  test(`if doesn't have any modifier defined`, () => {
-    expect(network.dataModifiers.length === 0).toBe(true);
+describe('Test User dataModifiers', () => {
+  const modifiers = ['units', 'decimals', 'display'];
+
+  test(`if all modifiers are defined`, () => {
+    const userModifiers = user.dataModifiers.map(({ id }) => id);
+    const hasAllModifiers = modifiers.every((property) => userModifiers.includes(property));
+
+    expect(hasAllModifiers).toBe(true);
   });
 });

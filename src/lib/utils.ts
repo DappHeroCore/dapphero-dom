@@ -4,7 +4,7 @@ export const createAttributeSelector = (key: string, property: string) => `[${ke
 
 export const getElementDataset = (element: HTMLElement) => Object.assign({}, element.dataset);
 
-export const getAttributeMode = dataset => (isEmpty(dataset) ? 'id' : 'data');
+export const getAttributeMode = (dataset) => (isEmpty(dataset) ? 'id' : 'data');
 
 export const sortProperties = (properties, featuresPropertiesPositions, feature) => {
   return properties.sort((a, b) => {

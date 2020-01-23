@@ -4,21 +4,50 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DappHero</title>
+    <title>DappHero DOM</title>
   </head>
 
   <body>
     <!-- Data mode -->
 
     <!-- Using Feature network with it's properties: id, infotype, name, provider -->
-    <div id="dh" data-dh-feature="network" data-dh-id="" data-dh-info-type="" data-dh-name="" data-dh-provider="">
+    <div
+      id="dh"
+      data-dh-feature="network"
+      data-dh-property-id
+      data-dh-property-info-type
+      data-dh-property-name
+      data-dh-property-provider
+    >
       ...
     </div>
+
+    <!-- Using Feature user with it's properties: address and balance, and modifiers: display, units and decimals -->
+    <div
+      id="dh"
+      data-dh-feature="user"
+      data-dh-property-address
+      data-dh-property-balance
+      data-dh-modifier-display="short"
+      data-dh-modifier-units="ether"
+      data-dh-modifier-decimals="4"
+    >
+      ...
+    </div>
+
+    <!-- ======================================================== -->
 
     <!-- ID mode -->
 
     <!-- Using Feature network with it's properties: id, infotype, name, provider -->
     <div id="dh,feature:network,property:id,property:infotype,property:name,property:provider">...</div>
+
+    <!-- Using Feature user with it's properties: address and balance, and modifiers units and decimals -->
+    <div
+      id="dh,enabled:false,feature:user,property:address,property:balance,modifier:display=short,modifier:units=ether,modifier:decimals=4"
+    >
+      ...
+    </div>
 
     <script src="./index.ts"></script>
   </body>

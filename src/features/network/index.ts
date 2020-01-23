@@ -1,5 +1,5 @@
 // Constants
-import { DATA_PREFIX, DATA_FEATURE } from '~/lib/constants';
+import { DATA_FEATURE, DATA_PROPERTY } from '~/lib/constants';
 
 export const network = {
   id: 'network',
@@ -7,31 +7,32 @@ export const network = {
   dataProperties: [
     {
       id: 'id',
-      attribute: `${DATA_PREFIX}-network-id`,
+      attribute: `${DATA_PROPERTY}-id`,
       required: false,
       validator: null,
       position: null,
     },
     {
       id: 'infotype',
-      attribute: `${DATA_PREFIX}-network-info-type`,
+      attribute: `${DATA_PROPERTY}-info-type`,
       required: false,
       validator: null,
       position: null,
     },
     {
       id: 'name',
-      attribute: `${DATA_PREFIX}-network-name`,
+      attribute: `${DATA_PROPERTY}-name`,
       required: false,
       validator: null,
       position: null,
     },
     {
       id: 'provider',
-      attribute: `${DATA_PREFIX}-network-provider`,
+      attribute: `${DATA_PROPERTY}-provider`,
       required: false,
       validator: null,
       position: null,
     },
   ],
+  dataModifiers: [],
 };
