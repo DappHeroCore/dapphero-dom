@@ -31,7 +31,7 @@ export const user = {
     {
       id: 'decimals',
       defaultValue: '10',
-      attribute: `${DATA_MODIFIER}-units`,
+      attribute: `${DATA_MODIFIER}-decimals`,
       validator: (value) => !isNaN(value) && Number.isInteger(Number(value)),
     },
     {

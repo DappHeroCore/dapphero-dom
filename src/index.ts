@@ -98,7 +98,11 @@ function parseActiveElements(features: Features) {
               .replace('Modifier', '')
               .toLowerCase();
 
-            return { key: parsedKey, value: sanitizeHtml(value) };
+            const availableModifiers = availableFeaturesModifiers[feature];
+            const defaultValue = availableModifiers.defaultValues[parsedKey];
+            const parsedValue = value || defaultValue;
+
+            return { key: parsedKey, value: sanitizeHtml(parsedValue) };
           })
           .filter(Boolean)
           .filter(({ key }) => !dataAttributesToExclude.includes(key))
@@ -170,7 +174,12 @@ function parseActiveElements(features: Features) {
             if (!str.includes('modifier')) return null;
 
             const [key, value = ''] = str.replace('modifier:', '').split('=');
-            return { key, value: sanitizeHtml(value) };
+
+            const availableModifiers = availableFeaturesModifiers[featureValue];
+            const defaultValue = availableModifiers.defaultValues[key];
+            const parsedValue = value || defaultValue;
+
+            return { key, value: sanitizeHtml(parsedValue) };
           })
           .filter(Boolean)
           .filter(({ key }) => !dataAttributesToExclude.includes(key))

@@ -27,6 +27,10 @@ export const getAvailableModifiers = (features: Features) => {
       [entry[0]]: {
         modifiers: entry[1].dataModifiers.map(({ id }) => id),
         validators: entry[1].dataModifiers.reduce((acc, { id, validator }) => ({ ...acc, [id]: validator }), {}),
+        defaultValues: entry[1].dataModifiers.reduce(
+          (acc, { id, defaultValue }) => ({ ...acc, [id]: defaultValue }),
+          {},
+        ),
       },
     }),
     {},
