@@ -2,28 +2,28 @@
 import { DATA_FEATURE } from '~/lib/constants';
 
 // Feature
-import { network } from './index';
+import { customContract } from './index';
 
-describe('Test Network dataAttribute', () => {
-  const dataAttribute = `${DATA_FEATURE}-network`;
+describe('Test customContract dataAttribute', () => {
+  const dataAttribute = `${DATA_FEATURE}-customContract`;
 
   test(`if feature data-attribute is ${dataAttribute}`, () => {
-    expect(network.dataAttribute).toBe(dataAttribute);
+    expect(customContract.dataAttribute).toBe(dataAttribute);
   });
 });
 
-describe('Test Network dataProperties', () => {
-  const properties = ['id', 'name', 'infoType', 'provider'];
+describe('Test customContract dataProperties', () => {
+  const properties = ['contractName', 'methodName', 'inputName', 'outputs', 'outputName'];
 
   test(`if all properties are defined`, () => {
-    const networkProperties = network.dataProperties.map(({ id }) => id);
-    const hasAllProperties = properties.every((property) => networkProperties.includes(property));
+    const customContractProperties = customContract.dataProperties.map(({ id }) => id);
+    const hasAllProperties = properties.every((property) => customContractProperties.includes(property));
 
     expect(hasAllProperties).toBe(true);
   });
 
   test(`if all defined validators are a function or a RegExp`, () => {
-    const requiredProperties = network.dataProperties
+    const requiredProperties = customContract.dataProperties
       .map((property) => (property.validator ? property : null))
       .filter(Boolean);
 
@@ -34,7 +34,7 @@ describe('Test Network dataProperties', () => {
   });
 
   test(`if all defined positions are a valid integer`, () => {
-    const requiredProperties = network.dataProperties
+    const requiredProperties = customContract.dataProperties
       .map((property) => (property.position ? property : null))
       .filter(Boolean);
 
@@ -45,8 +45,13 @@ describe('Test Network dataProperties', () => {
   });
 });
 
-describe('Test Network dataModifiers', () => {
-  test(`if doesn't have any modifier defined`, () => {
-    expect(network.dataModifiers.length === 0).toBe(true);
+describe(`Test customContract dataModifiers`, () => {
+  const modifiers = ['units', 'decimals', 'display'];
+
+  test(`if all modifiers are defined`, () => {
+    const userModifiers = customContract.dataModifiers.map(({ id }) => id);
+    const hasAllModifiers = modifiers.every((property) => userModifiers.includes(property));
+
+    expect(hasAllModifiers).toBe(true);
   });
 });

@@ -1,5 +1,4 @@
 import sanitizeHtml from 'sanitize-html';
-import lowerFirst from 'lodash.lowerfirst';
 
 // Types
 import { Features } from '~/lib/types';
@@ -11,16 +10,23 @@ import { DATA_FEATURE } from '~/lib/constants';
 import {
   getActiveElements,
   getAvailableFeatures,
+  getAvailableModifiers,
   getAvailableProperties,
   getFeaturesPropertiesPosition,
-  getAvailableModifiers,
 } from '~/lib/getters';
 
 // Features
 import { FEATURES } from '~/features/index';
 
 // Utils
-import { getElementDataset, getAttributeMode, sortProperties, createAttributeSelector } from '~/lib/utils';
+import {
+  sortProperties,
+  getAttributeMode,
+  getElementDataset,
+  getIdElementProperties,
+  getDataElementProperties,
+  createAttributeSelector,
+} from '~/lib/utils';
 
 // Core logic
 function parseActiveElements(features: Features, projectData) {
@@ -66,13 +72,7 @@ function parseActiveElements(features: Features, projectData) {
           return console.error(`Feature "${feature}" not allowed`);
         }
 
-        const properties = Object.entries(dataset)
-          .map(([key, value]) => {
-            if (/modifier/gi.test(key)) return null;
-
-            const parsedKey = lowerFirst(key.replace('dh', '').replace('Property', ''));
-            return { key: parsedKey, value: sanitizeHtml(value) };
-          })
+        const properties = getDataElementProperties(dataset)
           .filter(Boolean)
           .filter(({ key }) => !dataAttributesToExclude.includes(key))
           .filter(({ key }) => {
@@ -123,6 +123,7 @@ function parseActiveElements(features: Features, projectData) {
 
         const sortedProperties = sortProperties(properties, featuresPropertiesPositions, feature);
 
+        // Custom Contract Feature
         if (feature === availableFeatures.customContract) {
           const contractNameKey = properties.find((property) => property.key === 'contractName');
           const methodNameKey = properties.find((property) => property.key === 'methodName');
@@ -157,19 +158,27 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           // TODO: Add Type: 'method' | 'transaction' based on "stateMutability" key
+          // const methodType = contractMethod.stateMutability === 'nonpayable' ? 'method' : 'transaction'
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
             (property) => property.type === 'children',
           );
 
+          // Get all elements with the contract name
+          const contractElements = Array.from(
+            document.querySelectorAll(createAttributeSelector(`data-dh-property-contract-name`, contractName)),
+          ).filter((element) => !(element.getAttribute('id') || '').includes('dh'));
+
           // Get all children elements
           const childrenElements = childrenProperties
             .map((property) => {
               if (property.attribute.includes('input')) {
-                const inputs = element.querySelectorAll(createAttributeSelector(property.attribute));
+                const inputs = contractElements.filter((contractElement) =>
+                  contractElement.hasAttribute(property.attribute),
+                );
 
-                const parsedInputs = Array.from(inputs).map((input) => {
+                const parsedInputs = inputs.map((input) => {
                   const value = input.getAttribute(property.attribute);
 
                   // Check each input name in ABI equals to the value defined in the DOM
@@ -186,7 +195,9 @@ function parseActiveElements(features: Features, projectData) {
 
                 return { element: parsedInputs, id: property.id };
               } else {
-                const childrenElement = element.querySelector(createAttributeSelector(property.attribute));
+                const childrenElement = contractElements.find((contractElement) =>
+                  contractElement.hasAttribute(property.attribute),
+                );
 
                 if (property.attribute.endsWith('output-name')) {
                   const value = childrenElement.getAttribute(property.attribute);
@@ -233,15 +244,7 @@ function parseActiveElements(features: Features, projectData) {
           return console.error(`Feature "${featureValue}" not allowed`);
         }
 
-        const properties = values
-          .flatMap((str) => {
-            if (!str.includes('property')) return null;
-
-            const [key, value = ''] = str.replace('property:', '').split('=');
-            const parsedKey = lowerFirst(key);
-
-            return { key: parsedKey, value: sanitizeHtml(value) };
-          })
+        const properties = getIdElementProperties(element)
           .filter(Boolean)
           .filter(({ key }) => {
             const availableFeatureProperties = availableFeaturesProperties[featureValue];
@@ -288,7 +291,123 @@ function parseActiveElements(features: Features, projectData) {
 
         const sortedProperties = sortProperties(properties, featuresPropertiesPositions, featureValue);
 
-        return { element, feature: featureValue, properties: sortedProperties, modifiers, attributeMode };
+        // Custom Contract Feature
+        if (featureValue === availableFeatures.customContract) {
+          const contractNameKey = properties.find((property) => property.key === 'contractName');
+          const methodNameKey = properties.find((property) => property.key === 'methodName');
+
+          // Check if contract name exists in DOM
+          if (!contractNameKey || !contractNameKey.value) {
+            return console.error(`Contract name should be specified`);
+          }
+
+          // Check if contract name exists in ABI
+          const contractName = contractNameKey.value;
+          const contractInABI = projectData.contracts[contractName];
+
+          if (!contractInABI) {
+            return console.error(`Contract "${contractName}" does not exists on your project`);
+          }
+
+          // Check if method name exists in DOM
+          if (!methodNameKey || !methodNameKey.value) {
+            return console.error(`Contract name should be specified`);
+          }
+
+          // Get contract
+          const contractABI = projectData.contracts[contractName];
+
+          // Check if method name exists in ABI
+          const methodName = methodNameKey.value;
+          const contractMethod = contractABI.find((method) => method.name === methodName);
+
+          if (!contractMethod) {
+            return console.error(`Method name "${methodName}" does not exists on the contract ABI`);
+          }
+
+          // TODO: Add Type: 'method' | 'transaction' based on "stateMutability" key
+          // const methodType = contractMethod.stateMutability === 'nonpayable' ? 'method' : 'transaction'
+
+          // Get customContract children properties
+          const childrenProperties = features.customContract.dataProperties.filter(
+            (property) => property.type === 'children',
+          );
+
+          // Get all elements with the contract name
+          const contractElements = Array.from(
+            document.querySelectorAll(createAttributeSelector('id', contractName, '*=')),
+          ).filter((element) => !(element.getAttribute('id') || '').includes('dh'));
+
+          // Get all children elements
+          const childrenElements = childrenProperties
+            .map((property) => {
+              if (property.attribute.includes('input')) {
+                const inputs = contractElements.filter((contractElement) =>
+                  contractElement.getAttribute('id').includes(property.id),
+                );
+
+                const parsedInputs = inputs.map((input) => {
+                  const inputProperties = getIdElementProperties(input);
+                  const inputProperty = inputProperties.find((inputProperty) => inputProperty.key === property.id);
+
+                  if (!inputProperty) {
+                    return console.error(`Property id "${property.id}" not defined on element`);
+                  }
+
+                  // Check each input name in ABI equals to the value defined in the DOM
+                  const { value } = inputProperty;
+                  const isInputFound = contractMethod.inputs.some((input) => input.name === value);
+
+                  if (!isInputFound) {
+                    return console.error(
+                      `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                    );
+                  }
+
+                  return { element: input, id: property.id };
+                });
+
+                return { element: parsedInputs, id: property.id };
+              } else {
+                const childrenElement = contractElements.find((contractElement) =>
+                  contractElement.getAttribute('id').includes(property.id),
+                );
+
+                if (property.attribute.endsWith('outputName')) {
+                  const value = childrenElement.getAttribute(property.attribute);
+
+                  // Check each input name in ABI equals to the value defined in the DOM
+                  const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
+
+                  if (!isOutputFound) {
+                    return console.error(
+                      `Output name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                    );
+                  }
+                }
+
+                return { element: childrenElement, id: property.id };
+              }
+            })
+            .filter(Boolean);
+
+          return {
+            element,
+            childrenElements,
+            feature,
+            properties: sortedProperties,
+            modifiers,
+            attributeMode,
+          };
+        }
+
+        return {
+          element,
+          feature: featureValue,
+          properties: sortedProperties,
+          modifiers,
+          attributeMode,
+        };
       }
     })
     .filter(Boolean);

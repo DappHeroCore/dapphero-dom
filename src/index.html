@@ -19,29 +19,42 @@
       data-dh-property-contract-name="erc20"
       data-dh-property-method-name="transfer"
     >
-      <input data-dh-property-input-name="_to" />
-      <input data-dh-property-input-name="_value" />
+      <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
+      <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_value" />
 
       <!--For public methods - Get all outputs -->
-      <div data-dh-property-outputs>
+      <div data-dh-property-contract-name="erc20" data-dh-property-outputs>
         ...
       </div>
 
       <!-- For public methods - Get only one output by it's name -->
-      <div data-dh-property-output-name="isTransferSuccess">
+      <div data-dh-property-contract-name="erc20" data-dh-property-output-name="isTransferSuccess">
         ...
       </div>
 
-      <button data-dh-property-invoke>
+      <button data-dh-property-contract-name="erc20" data-dh-property-invoke>
         ...
       </button>
     </div>
 
     <!-- ID mode -->
-    <div
-      id="dh,feature:customContract,property:contractName=erc20,property:methodName=transfer,property:inputName=to,property:inputName=amount,property:outputs,property:outputName=isTransferSuccess"
-    >
-      ...
+    <div id="dh,feature:customContract,property:contractName=erc20,property:methodName=transfer">
+      <input id="property:contractName=erc20,property:inputName=_to" />
+      <input id="property:contractName=erc20,property:inputName=_value" />
+
+      <!--For public methods - Get all outputs -->
+      <div id="property:contractName=erc20,property:outputs">
+        ...
+      </div>
+
+      <!-- For public methods - Get only one output by it's name -->
+      <div id="property:contractName=erc20,property:outputName=isTransferSuccess">
+        ...
+      </div>
+
+      <button id="property:contractName=erc20,property:invoke">
+        ...
+      </button>
     </div>
 
     <!-- ========================================================================================================= -->
