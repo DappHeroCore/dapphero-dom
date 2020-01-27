@@ -21,7 +21,7 @@ Just run `yarn dev`, open [http://localhost:1234](http://localhost:1234) on your
 <script src="https://dapphero-dom.now.sh"></script>
 ```
 
-2. Just use the
+2. Use example:
 
 ```javascript
 const API_URL = 'YOUR_API_URL';
