@@ -1,6 +1,9 @@
 import isEmpty from 'lodash.isempty';
 
-export const createAttributeSelector = (key: string, property: string) => `[${key}="${property}"]`;
+export const createAttributeSelector = (key: string, property?: string) => {
+  if (property) return `[${key}="${property}"]`;
+  return `[${key}]`;
+};
 
 export const getElementDataset = (element: HTMLElement) => Object.assign({}, element.dataset);
 

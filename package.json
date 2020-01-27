@@ -20,6 +20,10 @@
   },
   "dependencies": {
     "lodash.isempty": "^4.4.0",
+    "lodash.lowerfirst": "^4.3.1",
     "sanitize-html": "^1.21.1"
-  }
+  },
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }

@@ -6,6 +6,7 @@ export type DataProperty = {
   required: boolean;
   validator?: RegExp;
   position?: number;
+  type?: string;
 };
 
 export type DataModifier = {
@@ -42,8 +43,16 @@ export type Property = {
   value: string;
 };
 
+export type ChildrenElement =
+  | {
+      id: string;
+      element: HTMLElement;
+    }
+  | ChildrenElement[];
+
 export type ActiveElement = {
-  element: HTMLElement;
+  element?: HTMLElement;
+  childrenElements?: ChildrenElement[];
   properties: Property[];
   feature: AvailableFeatures;
   attributeMode: 'id' | 'data';
@@ -51,4 +60,8 @@ export type ActiveElement = {
 
 export type AvailableProperties = {
   [key in AvailableFeatures]?: Pick<Property, 'id'>;
+};
+
+export type AvailableFeaturesMap = {
+  [key in AvailableFeatures]?: AvailableFeatures;
 };

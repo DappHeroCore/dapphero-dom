@@ -13,7 +13,7 @@ export const network = {
       position: null,
     },
     {
-      id: 'infotype',
+      id: 'infoType',
       attribute: `${DATA_PROPERTY}-info-type`,
       required: false,
       validator: null,

@@ -1,5 +1,5 @@
 // Types
-import { Features, AvailableFeatures, FeaturesEntries, PropertiesPositions, AvailableProperties } from '~/lib/types';
+import { Features, AvailableFeaturesMap, FeaturesEntries, PropertiesPositions, AvailableProperties } from '~/lib/types';
 
 // Constants
 import { DH } from '~/lib/constants';
@@ -9,8 +9,10 @@ export const getActiveElements = () => {
   return activeElements;
 };
 
-export const getAvailableFeatures = (features: Features): AvailableFeatures[] => {
-  return Object.entries(features).map((entry: FeaturesEntries) => entry[0]);
+export const getAvailableFeatures = (features: Features): AvailableFeaturesMap => {
+  return Object.entries(features)
+    .map((entry: FeaturesEntries) => entry[0])
+    .reduce((acc, key) => ({ ...acc, [key]: key }), {});
 };
 
 export const getAvailableProperties = (features: Features): AvailableProperties => {

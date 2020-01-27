@@ -29,10 +29,9 @@ import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-do
 
 ### API
 
-| Method                  | Params         | Returns        | Description                                          |
-| ----------------------- | -------------- | -------------- | ---------------------------------------------------- |
-| parseActiveElements     | empty          | activeElements | Get all DappHero active elements on the DOM          |
-| checkRequiredProperties | activeElements | void           | Check if all required properties has values assigned |
+| Method              | Params | Returns        | Description                                 |
+| ------------------- | ------ | -------------- | ------------------------------------------- |
+| parseActiveElements | empty  | activeElements | Get all DappHero active elements on the DOM |
 
 ### How to Use for UI/NoCode Tools (WIP)
 

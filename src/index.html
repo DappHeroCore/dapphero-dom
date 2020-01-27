@@ -8,6 +8,44 @@
   </head>
 
   <body>
+    <!-- Feature: customContract -->
+    <!-- Properties: contractName, methodName, inputName (zero or more), output (zero or more), outputName (zero or more)   -->
+    <!-- Modifiers: none -->
+
+    <!-- Data mode -->
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="erc20"
+      data-dh-property-method-name="transfer"
+    >
+      <input data-dh-property-input-name="_to" />
+      <input data-dh-property-input-name="_value" />
+
+      <!--For public methods - Get all outputs -->
+      <div data-dh-property-outputs>
+        ...
+      </div>
+
+      <!-- For public methods - Get only one output by it's name -->
+      <div data-dh-property-output-name="isTransferSuccess">
+        ...
+      </div>
+
+      <button data-dh-property-invoke>
+        ...
+      </button>
+    </div>
+
+    <!-- ID mode -->
+    <div
+      id="dh,feature:customContract,property:contractName=erc20,property:methodName=transfer,property:inputName=to,property:inputName=amount,property:outputs,property:outputName=isTransferSuccess"
+    >
+      ...
+    </div>
+
+    <!-- ========================================================================================================= -->
+
     <!-- Feature: Network -->
     <!-- Properties: id, infotype, name, provider -->
     <!-- Modifiers: none -->
@@ -25,7 +63,7 @@
     </div>
 
     <!-- ID mode -->
-    <div id="dh,feature:network,property:id,property:infotype,property:name,property:provider">...</div>
+    <div id="dh,feature:network,property:id,property:infoType,property:name,property:provider">...</div>
 
     <!-- ========================================================================================================= -->
 

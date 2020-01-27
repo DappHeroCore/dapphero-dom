@@ -1,4 +1,5 @@
 import sanitizeHtml from 'sanitize-html';
+import lowerFirst from 'lodash.lowerfirst';
 
 // Types
 import { Features } from '~/lib/types';
@@ -19,10 +20,10 @@ import {
 import { FEATURES } from '~/features/index';
 
 // Utils
-import { getElementDataset, getAttributeMode, sortProperties } from '~/lib/utils';
+import { getElementDataset, getAttributeMode, sortProperties, createAttributeSelector } from '~/lib/utils';
 
 // Core logic
-function parseActiveElements(features: Features) {
+function parseActiveElements(features: Features, projectData) {
   const activeElements = getActiveElements();
 
   // Get all available features
@@ -59,7 +60,7 @@ function parseActiveElements(features: Features) {
           return console.error(`Feature attribute was not added to the element`);
         }
 
-        const isAllowedFeature = availableFeatures.some((availableKeyFeature) => availableKeyFeature === feature);
+        const isAllowedFeature = availableFeatures[feature];
 
         if (!isAllowedFeature) {
           return console.error(`Feature "${feature}" not allowed`);
@@ -69,11 +70,7 @@ function parseActiveElements(features: Features) {
           .map(([key, value]) => {
             if (/modifier/gi.test(key)) return null;
 
-            const parsedKey = key
-              .replace('dh', '')
-              .replace('Property', '')
-              .toLowerCase();
-
+            const parsedKey = lowerFirst(key.replace('dh', '').replace('Property', ''));
             return { key: parsedKey, value: sanitizeHtml(value) };
           })
           .filter(Boolean)
@@ -126,6 +123,92 @@ function parseActiveElements(features: Features) {
 
         const sortedProperties = sortProperties(properties, featuresPropertiesPositions, feature);
 
+        if (feature === availableFeatures.customContract) {
+          const contractNameKey = properties.find((property) => property.key === 'contractName');
+          const methodNameKey = properties.find((property) => property.key === 'methodName');
+
+          // Check if contract name exists in DOM
+          if (!contractNameKey || !contractNameKey.value) {
+            return console.error(`Contract name should be specified`);
+          }
+
+          // Check if contract name exists in ABI
+          const contractName = contractNameKey.value;
+          const contractInABI = projectData.contracts[contractName];
+
+          if (!contractInABI) {
+            return console.error(`Contract "${contractName}" does not exists on your project`);
+          }
+
+          // Check if method name exists in DOM
+          if (!methodNameKey || !methodNameKey.value) {
+            return console.error(`Contract name should be specified`);
+          }
+
+          // Get contract
+          const contractABI = projectData.contracts[contractName];
+
+          // Check if method name exists in ABI
+          const methodName = methodNameKey.value;
+          const contractMethod = contractABI.find((method) => method.name === methodName);
+
+          if (!contractMethod) {
+            return console.error(`Method name "${methodName}" does not exists on the contract ABI`);
+          }
+
+          // TODO: Add Type: 'method' | 'transaction' based on "stateMutability" key
+
+          // Get customContract children properties
+          const childrenProperties = features.customContract.dataProperties.filter(
+            (property) => property.type === 'children',
+          );
+
+          // Get all children elements
+          const childrenElements = childrenProperties
+            .map((property) => {
+              if (property.attribute.includes('input')) {
+                const inputs = element.querySelectorAll(createAttributeSelector(property.attribute));
+
+                const parsedInputs = Array.from(inputs).map((input) => {
+                  const value = input.getAttribute(property.attribute);
+
+                  // Check each input name in ABI equals to the value defined in the DOM
+                  const isInputFound = contractMethod.inputs.some((input) => input.name === value);
+
+                  if (!isInputFound) {
+                    return console.error(
+                      `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                    );
+                  }
+
+                  return { element: input, id: property.id };
+                });
+
+                return { element: parsedInputs, id: property.id };
+              } else {
+                const childrenElement = element.querySelector(createAttributeSelector(property.attribute));
+
+                if (property.attribute.endsWith('output-name')) {
+                  const value = childrenElement.getAttribute(property.attribute);
+
+                  // Check each input name in ABI equals to the value defined in the DOM
+                  const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
+
+                  if (!isOutputFound) {
+                    return console.error(
+                      `Output name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                    );
+                  }
+                }
+
+                return { element: childrenElement, id: property.id };
+              }
+            })
+            .filter(Boolean);
+
+          return { element, childrenElements, feature, properties: sortedProperties, modifiers, attributeMode };
+        }
+
         return { element, feature, properties: sortedProperties, modifiers, attributeMode };
       }
 
@@ -144,7 +227,7 @@ function parseActiveElements(features: Features) {
         }
 
         const [, featureValue = ''] = feature.split(':');
-        const isAllowedFeature = availableFeatures.some((availableKeyFeature) => availableKeyFeature === featureValue);
+        const isAllowedFeature = availableFeatures[featureValue];
 
         if (!isAllowedFeature) {
           return console.error(`Feature "${featureValue}" not allowed`);
@@ -155,7 +238,9 @@ function parseActiveElements(features: Features) {
             if (!str.includes('property')) return null;
 
             const [key, value = ''] = str.replace('property:', '').split('=');
-            return { key, value: sanitizeHtml(value) };
+            const parsedKey = lowerFirst(key);
+
+            return { key: parsedKey, value: sanitizeHtml(value) };
           })
           .filter(Boolean)
           .filter(({ key }) => {
@@ -211,32 +296,13 @@ function parseActiveElements(features: Features) {
   return parsedElements;
 }
 
-function checkRequiredProperties(elements, features: Features) {
-  // Get all data properties keys that are required
-  const requiredKeys = Object.entries(features).flatMap(([, value]) => {
-    return value.dataProperties
-      .map((dataProperty) => (dataProperty.required === true ? dataProperty.id : null))
-      .filter(Boolean);
-  });
-
-  // Iterate over all DappHero active elements
-  elements.forEach(({ feature, properties }) => {
-    // Iterate over all element properties and check against feature properties required key
-    properties.forEach((property) => {
-      if (requiredKeys.includes(property.key) && !property.value) {
-        console.error(
-          `Property "${property.key}" on Feature "${feature}" it's required but it's value is "${property.value}"`,
-        );
-      }
-    });
-  });
-}
-
 // Run core logic
-function main() {
-  const parsedActiveElements = parseActiveElements(FEATURES);
-  checkRequiredProperties(parsedActiveElements, FEATURES);
+async function main() {
+  // TODO: This will came from API, and sending the Token to the API
+  const res = await fetch('http://www.mocky.io/v2/5e2e261a3000006200e77e16');
+  const projectData = await res.json();
 
+  const parsedActiveElements = parseActiveElements(FEATURES, projectData);
   console.log('parsedActiveElements', parsedActiveElements);
 }
 
