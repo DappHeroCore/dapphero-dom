@@ -1,3 +1,4 @@
+import nanoid from 'nanoid';
 import sanitizeHtml from 'sanitize-html';
 
 // Types
@@ -147,7 +148,8 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           // Get contract
-          const contractABI = projectData.contracts[contractName];
+          const contract = projectData.contracts[contractName];
+          const contractABI = contract.abi;
 
           // Check if method name exists in ABI
           const methodName = methodNameKey.value;
@@ -199,6 +201,10 @@ function parseActiveElements(features: Features, projectData) {
                   contractElement.hasAttribute(property.attribute),
                 );
 
+                if (!childrenElement) {
+                  return console.error(`Element with attribute "${property.attribute}" has not been found`);
+                }
+
                 if (property.attribute.endsWith('output-name')) {
                   const value = childrenElement.getAttribute(property.attribute);
 
@@ -217,7 +223,15 @@ function parseActiveElements(features: Features, projectData) {
             })
             .filter(Boolean);
 
-          return { element, childrenElements, feature, properties: sortedProperties, modifiers, attributeMode };
+          return {
+            element,
+            contract,
+            childrenElements,
+            feature,
+            properties: sortedProperties,
+            modifiers,
+            attributeMode,
+          };
         }
 
         return { element, feature, properties: sortedProperties, modifiers, attributeMode };
@@ -315,7 +329,8 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           // Get contract
-          const contractABI = projectData.contracts[contractName];
+          const contract = projectData.contracts[contractName];
+          const contractABI = contract.abi;
 
           // Check if method name exists in ABI
           const methodName = methodNameKey.value;
@@ -393,6 +408,7 @@ function parseActiveElements(features: Features, projectData) {
 
           return {
             element,
+            contract,
             childrenElements,
             feature,
             properties: sortedProperties,
@@ -412,7 +428,7 @@ function parseActiveElements(features: Features, projectData) {
     })
     .filter(Boolean);
 
-  return parsedElements;
+  return parsedElements.map((parsedElement) => ({ ...parsedElement, id: nanoid() }));
 }
 
 // Run core logic
@@ -424,3 +440,6 @@ export const getDomElements = async (apiUrl) => {
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
   return parsedActiveElements;
 };
+
+// Test:
+// getDomElements('http://www.mocky.io/v2/5e2f4a4b310000750071070b');

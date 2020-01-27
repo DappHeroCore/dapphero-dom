@@ -50,8 +50,30 @@ export type ChildrenElement =
     }
   | ChildrenElement[];
 
+export type InputOutput = {
+  name: string;
+  type: string;
+};
+
+export type ABI = {
+  constant?: boolean;
+  anonymous?: boolean;
+  name: string;
+  outputs: InputOutput[];
+  inputs: InputOutput[];
+  payable: boolean;
+  stateMutability: string;
+  type: string;
+};
+
+export type Contract = {
+  address: string;
+  abi: ABI;
+};
+
 export type ActiveElement = {
   element?: HTMLElement;
+  contract?: Contract;
   childrenElements?: ChildrenElement[];
   properties: Property[];
   feature: AvailableFeatures;

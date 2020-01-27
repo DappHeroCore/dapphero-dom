@@ -10,6 +10,7 @@
   "dependencies": {
     "lodash.isempty": "^4.4.0",
     "lodash.lowerfirst": "^4.3.1",
+    "nanoid": "^2.1.10",
     "sanitize-html": "^1.21.1"
   },
   "devDependencies": {
@@ -26,8 +27,8 @@
     "test": "jest --watchAll",
     "publish:npm": "np",
     "publish:now": "npm run build && now ./dist/dapphero-dom.umd.js",
-    "build": "microbundle --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst",
-    "build:watch": "microbundle watch --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst"
+    "build": "microbundle --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,nanoid=nanoid",
+    "build:watch": "microbundle watch --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,nanoid=nanoid"
   },
   "browserslist": [
     "last 1 Chrome version"
