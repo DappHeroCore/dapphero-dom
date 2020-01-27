@@ -134,15 +134,17 @@
     </div>
 
     <!-- To test: Parcel build -->
-    <script src="./index.ts"></script>
+    <!-- <script src="./index.ts"></script> -->
 
-    <!-- To test: UMD deploy -->
-    <!--
-    <script src="https://dapphero-dom.now.sh"></script>
+    <!-- To test: Now deploy -->
+    <!-- <script src="https://dapphero-dom.now.sh"></script> -->
+
+    <!-- To test: UMD build -->
+    <script src="../dist/dapphero-dom.umd.js"></script>
 
     <script>
       const API_URL = 'http://www.mocky.io/v2/5e2f4a4b310000750071070b';
-      dappheroDom.getDomElements(API_URL).then((elements) => console.log(elements));
-    </script> -->
+      dappHeroDom.getDomElements(API_URL).then((elements) => console.log(elements));
+    </script>
   </body>
 </html>

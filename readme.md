@@ -27,7 +27,7 @@ Just run `yarn dev`, open [http://localhost:1234](http://localhost:1234) on your
 
 ```javascript
 const API_URL = 'YOUR_API_URL';
-dappheroDom.getDomElements(API_URL).then((elements) => console.log(elements));
+dappHeroDom.getDomElements(API_URL).then((elements) => console.log(elements));
 ```
 
 ### Installing (WIP)

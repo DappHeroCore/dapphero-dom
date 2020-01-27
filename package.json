@@ -10,11 +10,11 @@
   "dependencies": {
     "lodash.isempty": "^4.4.0",
     "lodash.lowerfirst": "^4.3.1",
-    "nanoid": "^2.1.10",
-    "sanitize-html": "^1.21.1"
+    "sanitize-html": "^1.21.1",
+    "shortid": "^2.2.15"
   },
   "devDependencies": {
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^25.1.0",
     "jest": "^25.1.0",
     "microbundle": "^0.11.0",
     "np": "^5.2.1",
@@ -27,8 +27,8 @@
     "test": "jest --watchAll",
     "publish:npm": "np",
     "publish:now": "npm run build && now ./dist/dapphero-dom.umd.js",
-    "build": "microbundle --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,nanoid=nanoid",
-    "build:watch": "microbundle watch --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,nanoid=nanoid"
+    "build": "microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
+    "build:watch": "microbundle watch --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
   },
   "browserslist": [
     "last 1 Chrome version"

@@ -1,4 +1,4 @@
-import nanoid from 'nanoid';
+import shortid from 'shortid';
 import sanitizeHtml from 'sanitize-html';
 
 // Types
@@ -428,7 +428,7 @@ function parseActiveElements(features: Features, projectData) {
     })
     .filter(Boolean);
 
-  return parsedElements.map((parsedElement) => ({ ...parsedElement, id: nanoid() }));
+  return parsedElements.map((parsedElement) => ({ ...parsedElement, id: shortid.generate() }));
 }
 
 // Run core logic
