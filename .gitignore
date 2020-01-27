@@ -4,3 +4,4 @@ dist
 *.lock
 *.log
 *.json
+.rts2_*

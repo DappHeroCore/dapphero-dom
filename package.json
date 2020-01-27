@@ -1,12 +1,21 @@
 {
   "name": "@xivis/dapphero-dom",
   "version": "0.0.1",
-  "main": "index.js",
   "license": "MIT",
   "private": true,
+  "source": "src/index.ts",
+  "main": "dist/dapphero-dom.js",
+  "module": "dist/dapphero-dom.mjs",
+  "unpkg": "dist/dapphero-dom.umd.js",
+  "dependencies": {
+    "lodash.isempty": "^4.4.0",
+    "lodash.lowerfirst": "^4.3.1",
+    "sanitize-html": "^1.21.1"
+  },
   "devDependencies": {
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^24.9.1",
     "jest": "^25.1.0",
+    "microbundle": "^0.11.0",
     "np": "^5.2.1",
     "parcel-bundler": "^1.12.4",
     "ts-jest": "^25.0.0",
@@ -16,12 +25,7 @@
     "publish": "np",
     "dev": "./start.sh",
     "test": "jest --watchAll",
-    "build": "$(npm bin)/parcel build ./src/index.html"
-  },
-  "dependencies": {
-    "lodash.isempty": "^4.4.0",
-    "lodash.lowerfirst": "^4.3.1",
-    "sanitize-html": "^1.21.1"
+    "build": "microbundle --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst"
   },
   "browserslist": [
     "last 1 Chrome version"

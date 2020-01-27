@@ -416,13 +416,11 @@ function parseActiveElements(features: Features, projectData) {
 }
 
 // Run core logic
-async function main() {
-  // TODO: This will came from API, and sending the Token to the API
-  const res = await fetch('http://www.mocky.io/v2/5e2e261a3000006200e77e16');
+export const getDomElements = async (apiUrl) => {
+  // TODO: This will came from API, and we'll sending the Token to the API
+  const res = await fetch(apiUrl);
   const projectData = await res.json();
 
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
-  console.log('parsedActiveElements', parsedActiveElements);
-}
-
-main();
+  return parsedActiveElements;
+};
