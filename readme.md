@@ -101,11 +101,11 @@ Example:
 
 4. Add the properties you want to set or get in the chosen feature
    To follow this step please refer to the feature particular documentation:
-   - [Network](##Network)
-   - [User](##User)
-   - [3Box](##3Box)
-   - [Custom Contract](##Contract)
-   - [NFT](##NFT)
+   - [Custom Contract](###Contract)
+   - [Network](###Network)
+   - [User](###User)
+   - [3Box](###3Box)
+   - [NFT](###NFT)
 
 Example:
 
@@ -113,9 +113,151 @@ Example:
 <div data-dh-enabled="true" data-dh-feature="network" data-dh-id>...</div>
 ```
 
-## Network
+### Contract
 
-### Properties
+#### Public Method
+
+- Data Mode
+
+  1. Add the `data-dh-property-contract-name` attribute with the contract name as a value
+
+  ```html
+  <div id="dh" data-dh-feature="customContract" data-dh-property-contract-name="erc20">
+    ...
+  </div>
+  ```
+
+  2. Add the `data-dh-property-method-name` attribute with the method name you want to trigger
+
+  ```html
+  <div
+    id="dh"
+    data-dh-feature="customContract"
+    data-dh-property-contract-name="erc20"
+    data-dh-property-method-name="transfer"
+  >
+    ...
+  </div>
+  ```
+
+  3. Add the `inputs` tags to you want to populate the method parameters. They can be direct children or be in any HTML element that's why you must declare on each one the `data-dh-property-contract-name`.
+
+  ```html
+  <div
+    id="dh"
+    data-dh-feature="customContract"
+    data-dh-property-contract-name="erc20"
+    data-dh-property-method-name="transfer"
+  >
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_value" />
+  </div>
+  ```
+
+  4. **(Optionally)** Add the `inputs` tags to you want to populate the method parameters.
+
+  ```html
+  <div
+    id="dh"
+    data-dh-feature="customContract"
+    data-dh-property-contract-name="erc20"
+    data-dh-property-method-name="transfer"
+  >
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
+  </div>
+  ```
+
+  > They can be direct children or be in any HTML element that's why you must declare on each one the _data-dh-property-contract-name_ attribute with it's value
+
+  5. **(Optionally)** if you want to get all method outputs inside a element add the `data-dh-property-outputs` attribute without values.
+
+  ```html
+  <div
+    id="dh"
+    data-dh-feature="customContract"
+    data-dh-property-contract-name="erc20"
+    data-dh-property-method-name="transfer"
+  >
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_value" />
+
+    <div data-dh-property-contract-name="erc20" data-dh-property-outputs>
+      ...
+    </div>
+  </div>
+  ```
+
+  > They can be direct children or be in any HTML element that's why you must declare on each one the _data-dh-property-contract-name_ attribute with it's value
+
+  6. **(Optionally)** if you want to get a specific output and you know the output name before hand you can define it in a tag
+
+  ```html
+  <div
+    id="dh"
+    data-dh-feature="customContract"
+    data-dh-property-contract-name="erc20"
+    data-dh-property-method-name="transfer"
+  >
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_value" />
+
+    <div data-dh-property-contract-name="erc20" data-dh-property-output-name="isTransferSuccess">
+      ...
+    </div>
+  </div>
+  ```
+
+  7. Finally if you want to trigger the method with your own elements add the `data-dh-property-invoke` to that element.
+
+  ```html
+  <div
+    id="dh"
+    data-dh-feature="customContract"
+    data-dh-property-contract-name="erc20"
+    data-dh-property-method-name="transfer"
+  >
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
+    <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_value" />
+
+    <div data-dh-property-contract-name="erc20" data-dh-property-output-name="isTransferSuccess">
+      ...
+    </div>
+
+    <button data-dh-property-contract-name="erc20" data-dh-property-invoke>
+      ...
+    </button>
+  </div>
+  ```
+
+  > They can be direct children or be in any HTML element that's why you must declare on each one the _data-dh-property-contract-name_ attribute with it's value
+
+- ID Mode
+  Follow the same steps as before but with the following syntax:
+
+```html
+<div id="dh,feature:customContract,property:contractName=erc20,property:methodName=transfer">
+  <input id="property:contractName=erc20,property:inputName=_to" />
+  <input id="property:contractName=erc20,property:inputName=_value" />
+
+  <!--For public methods - Get all outputs -->
+  <div id="property:contractName=erc20,property:outputs">
+    ...
+  </div>
+
+  <!-- For public methods - Get only one output by it's name -->
+  <div id="property:contractName=erc20,property:outputName=isTransferSuccess">
+    ...
+  </div>
+
+  <button id="property:contractName=erc20,property:invoke">
+    ...
+  </button>
+</div>
+```
+
+### Network
+
+#### Properties
 
 - **Get ID**
 
@@ -294,7 +436,7 @@ Network feature has no modifiers available.
 
 ### 3Box
 
-### Properties
+#### Properties
 
 - **Get Name**
 
@@ -444,9 +586,9 @@ Network feature has no modifiers available.
 
 Network feature has no modifiers available.
 
-### Contract
-
 ### NFT
+
+WIP
 
 ### Attributes
 
@@ -501,7 +643,7 @@ export const features = {
 - [x] Network
 - [x] User
 - [x] 3Box
-- [ ] Custom Contract
+- [x] Custom Contract
 - [ ] NFT
 
 ## Roadmap
