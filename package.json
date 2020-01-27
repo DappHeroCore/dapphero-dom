@@ -22,10 +22,12 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "publish": "np",
     "dev": "./start.sh",
     "test": "jest --watchAll",
-    "build": "microbundle --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst"
+    "publish:npm": "np",
+    "publish:now": "npm run build && now ./dist/dapphero-dom.umd.js",
+    "build": "microbundle --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst",
+    "build:watch": "microbundle watch --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst"
   },
   "browserslist": [
     "last 1 Chrome version"
