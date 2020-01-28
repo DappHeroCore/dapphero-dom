@@ -364,7 +364,6 @@ function parseActiveElements(features: Features, projectData) {
                 const parsedInputs = inputs.map((input) => {
                   const inputProperties = getIdElementProperties(input);
                   const inputProperty = inputProperties.find((inputProperty) => inputProperty.key === property.id);
-                  console.log("TCL: inputProperty", inputProperty)
 
                   if (!inputProperty) {
                     return console.error(`Property id "${property.id}" not defined on element`);
@@ -439,7 +438,6 @@ export const getDomElements = async (apiUrl) => {
   const projectData = await res.json();
 
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
-  console.log("TCL: getDomElements -> parsedActiveElements", parsedActiveElements)
   return parsedActiveElements;
 };
 
