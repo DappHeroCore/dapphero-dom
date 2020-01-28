@@ -442,4 +442,4 @@ export const getDomElements = async (apiUrl) => {
 };
 
 // Test:
-getDomElements('http://www.mocky.io/v2/5e2f4a4b310000750071070b');
+// getDomElements('http://www.mocky.io/v2/5e2f4a4b310000750071070b');
