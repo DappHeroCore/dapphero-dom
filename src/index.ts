@@ -227,10 +227,15 @@ function parseActiveElements(features: Features, projectData) {
             })
             .filter(Boolean);
 
+          const hasParameters = childrenElements.some(
+            (childrenElement) => childrenElement && childrenElement.id.includes('input'),
+          );
+
           return {
             element,
             contract,
             isTransaction,
+            hasParameters,
             childrenElements,
             feature,
             properties: sortedProperties,
@@ -412,10 +417,15 @@ function parseActiveElements(features: Features, projectData) {
             })
             .filter(Boolean);
 
+          const hasParameters = childrenElements.some(
+            (childrenElement) => childrenElement && childrenElement.id.includes('input'),
+          );
+
           return {
             element,
             contract,
             isTransaction,
+            hasParameters,
             childrenElements,
             feature,
             properties: sortedProperties,
