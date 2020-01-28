@@ -192,7 +192,7 @@ function parseActiveElements(features: Features, projectData) {
                     );
                   }
 
-                  return { element: input, id: property.id };
+                  return { element: input, id: property.id, argumentName: value };
                 });
 
                 return { element: parsedInputs, id: property.id };
@@ -364,6 +364,7 @@ function parseActiveElements(features: Features, projectData) {
                 const parsedInputs = inputs.map((input) => {
                   const inputProperties = getIdElementProperties(input);
                   const inputProperty = inputProperties.find((inputProperty) => inputProperty.key === property.id);
+                  console.log("TCL: inputProperty", inputProperty)
 
                   if (!inputProperty) {
                     return console.error(`Property id "${property.id}" not defined on element`);
@@ -379,8 +380,8 @@ function parseActiveElements(features: Features, projectData) {
                     );
                   }
 
-                  return { element: input, id: property.id };
-                });
+                  return { element: input, id: property.id, argumentName: value };
+                }).filter(Boolean);
 
                 return { element: parsedInputs, id: property.id };
               } else {
@@ -438,8 +439,9 @@ export const getDomElements = async (apiUrl) => {
   const projectData = await res.json();
 
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
+  console.log("TCL: getDomElements -> parsedActiveElements", parsedActiveElements)
   return parsedActiveElements;
 };
 
 // Test:
-// getDomElements('http://www.mocky.io/v2/5e2f4a4b310000750071070b');
+getDomElements('http://www.mocky.io/v2/5e2f4a4b310000750071070b');

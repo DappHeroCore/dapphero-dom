@@ -19,8 +19,8 @@
       data-dh-property-contract-name="erc20"
       data-dh-property-method-name="transfer"
     >
-      <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_to" />
-      <input data-dh-property-contract-name="erc20" data-dh-property-input-name="_value" />
+      <input data-dh-property-contract-name="erc20" data-dh-property-input-name="dst" />
+      <input data-dh-property-contract-name="erc20" data-dh-property-input-name="wad" />
 
       <!--For public methods - Get all outputs -->
       <div data-dh-property-contract-name="erc20" data-dh-property-outputs>
@@ -39,8 +39,8 @@
 
     <!-- ID mode -->
     <div id="dh,feature:customContract,property:contractName=erc20,property:methodName=transfer">
-      <input id="property:contractName=erc20,property:inputName=_to" />
-      <input id="property:contractName=erc20,property:inputName=_value" />
+      <input id="property:contractName=erc20,property:inputName=dst" />
+      <input id="property:contractName=erc20,property:inputName=wad" />
 
       <!--For public methods - Get all outputs -->
       <div id="property:contractName=erc20,property:outputs">
@@ -134,17 +134,17 @@
     </div>
 
     <!-- To test: Parcel build -->
-    <!-- <script src="./index.ts"></script> -->
+    <script src="./index.ts"></script>
 
     <!-- To test: Now deploy -->
     <!-- <script src="https://dapphero-dom.now.sh"></script> -->
 
     <!-- To test: UMD build -->
-    <script src="../dist/dapphero-dom.umd.js"></script>
+    <!-- <script src="../dist/dapphero-dom.umd.js"></script>
 
     <script>
       const API_URL = 'http://www.mocky.io/v2/5e2f4a4b310000750071070b';
       dappHeroDom.getDomElements(API_URL).then((elements) => console.log(elements));
-    </script>
+    </script> -->
   </body>
 </html>
