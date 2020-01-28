@@ -43,6 +43,14 @@ export const customContract = {
       position: null,
       type: 'children',
     },
+    {
+      id: 'invoke',
+      attribute: `${DATA_PROPERTY}-invoke`,
+      required: false,
+      validator: null,
+      position: null,
+      type: 'children',
+    },
   ],
   dataModifiers: [
     {

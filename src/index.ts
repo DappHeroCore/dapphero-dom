@@ -200,6 +200,7 @@ function parseActiveElements(features: Features, projectData) {
                 const childrenElement = contractElements.find((contractElement) =>
                   contractElement.hasAttribute(property.attribute),
                 );
+                console.log('TCL: parseActiveElements -> childrenElement', childrenElement);
 
                 if (!childrenElement) {
                   return console.error(`Element with attribute "${property.attribute}" has not been found`);
@@ -361,26 +362,28 @@ function parseActiveElements(features: Features, projectData) {
                   contractElement.getAttribute('id').includes(property.id),
                 );
 
-                const parsedInputs = inputs.map((input) => {
-                  const inputProperties = getIdElementProperties(input);
-                  const inputProperty = inputProperties.find((inputProperty) => inputProperty.key === property.id);
+                const parsedInputs = inputs
+                  .map((input) => {
+                    const inputProperties = getIdElementProperties(input);
+                    const inputProperty = inputProperties.find((inputProperty) => inputProperty.key === property.id);
 
-                  if (!inputProperty) {
-                    return console.error(`Property id "${property.id}" not defined on element`);
-                  }
+                    if (!inputProperty) {
+                      return console.error(`Property id "${property.id}" not defined on element`);
+                    }
 
-                  // Check each input name in ABI equals to the value defined in the DOM
-                  const { value } = inputProperty;
-                  const isInputFound = contractMethod.inputs.some((input) => input.name === value);
+                    // Check each input name in ABI equals to the value defined in the DOM
+                    const { value } = inputProperty;
+                    const isInputFound = contractMethod.inputs.some((input) => input.name === value);
 
-                  if (!isInputFound) {
-                    return console.error(
-                      `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
-                    );
-                  }
+                    if (!isInputFound) {
+                      return console.error(
+                        `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                      );
+                    }
 
-                  return { element: input, id: property.id, argumentName: value };
-                }).filter(Boolean);
+                    return { element: input, id: property.id, argumentName: value };
+                  })
+                  .filter(Boolean);
 
                 return { element: parsedInputs, id: property.id };
               } else {
