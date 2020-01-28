@@ -159,8 +159,7 @@ function parseActiveElements(features: Features, projectData) {
             return console.error(`Method name "${methodName}" does not exists on the contract ABI`);
           }
 
-          // TODO: Add Type: 'method' | 'transaction' based on "stateMutability" key
-          // const methodType = contractMethod.stateMutability === 'nonpayable' ? 'method' : 'transaction'
+          const isTransaction = contractMethod.stateMutability !== 'view';
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
@@ -180,20 +179,24 @@ function parseActiveElements(features: Features, projectData) {
                   contractElement.hasAttribute(property.attribute),
                 );
 
-                const parsedInputs = inputs.map((input) => {
-                  const value = input.getAttribute(property.attribute);
+                const parsedInputs = inputs
+                  .map((input) => {
+                    const value = input.getAttribute(property.attribute);
 
-                  // Check each input name in ABI equals to the value defined in the DOM
-                  const isInputFound = contractMethod.inputs.some((input) => input.name === value);
+                    // Check each input name in ABI equals to the value defined in the DOM
+                    const isInputFound = contractMethod.inputs.some((input) => input.name === value);
 
-                  if (!isInputFound) {
-                    return console.error(
-                      `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
-                    );
-                  }
+                    if (!isInputFound) {
+                      return console.error(
+                        `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                      );
+                    }
 
-                  return { element: input, id: property.id, argumentName: value };
-                });
+                    return { element: input, id: property.id, argumentName: value };
+                  })
+                  .filter(Boolean);
+
+                if (!parsedInputs.length) return null;
 
                 return { element: parsedInputs, id: property.id };
               } else {
@@ -227,6 +230,7 @@ function parseActiveElements(features: Features, projectData) {
           return {
             element,
             contract,
+            isTransaction,
             childrenElements,
             feature,
             properties: sortedProperties,
@@ -341,8 +345,7 @@ function parseActiveElements(features: Features, projectData) {
             return console.error(`Method name "${methodName}" does not exists on the contract ABI`);
           }
 
-          // TODO: Add Type: 'method' | 'transaction' based on "stateMutability" key
-          // const methodType = contractMethod.stateMutability === 'nonpayable' ? 'method' : 'transaction'
+          const isTransaction = contractMethod.stateMutability !== 'view';
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
@@ -412,6 +415,7 @@ function parseActiveElements(features: Features, projectData) {
           return {
             element,
             contract,
+            isTransaction,
             childrenElements,
             feature,
             properties: sortedProperties,
