@@ -1,6 +1,6 @@
 {
   "name": "@dapphero/dapphero-dom",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "source": "src/index.ts",
   "main": "dist/dapphero-dom.js",
@@ -13,7 +13,7 @@
     "shortid": "^2.2.15"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.0",
+    "@types/jest": "^25.1.1",
     "jest": "^25.1.0",
     "microbundle": "^0.11.0",
     "np": "^5.2.1",
@@ -25,8 +25,8 @@
     "dev": "./start.sh",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "publish:npm": "npm run build && np",
-    "publish:now": "npm run build && now ./dist/dapphero-dom.umd.js",
+    "publish:npm": "np",
+    "publish:now": "now ./dist/dapphero-dom.umd.js",
     "build": "microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
     "build:watch": "microbundle watch --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
   },

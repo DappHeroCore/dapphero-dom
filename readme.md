@@ -16,42 +16,25 @@
 
 Just run `yarn dev`, open [http://localhost:1234](http://localhost:1234) on your browser, and open `/src/index.html` in your code editor and you will have several feature examples, you can play removing and editing features, properties and modifiers.
 
-### Installing (At the moment)
-
-1. To install simple copy this script to your `html` file:
-
-```html
-<script src="https://dapphero-dom.now.sh"></script>
-```
-
-2. Use example:
-
-```javascript
-const API_URL = 'YOUR_API_URL';
-dappHeroDom.getDomElements(API_URL).then((elements) => console.log(elements));
-```
-
-### Installing (WIP)
+### Installing
 
 To install simple run:
 
 ```bash
-> yarn add @xivis/dapphero-dom
+> yarn add @dapphero/dapphero-dom
 ```
 
 Then import your dependencies:
 
 ```javascript
-import { parseActiveElements, checkRequiredProperties } from '@xivis/dapphero-dom';
+import { getDomElements } from '@dapphero/dapphero-dom';
 ```
 
 ### API
 
-| Method         | Params | Returns        | Description                                 |
-| -------------- | ------ | -------------- | ------------------------------------------- |
-| getDomElements | apiUrl | activeElements | Get all DappHero active elements on the DOM |
-
-### How to Use for UI/NoCode Tools (WIP)
+| Method         | Params               | Returns        | Description                                 |
+| -------------- | -------------------- | -------------- | ------------------------------------------- |
+| getDomElements | projectData (Bubble) | activeElements | Get all DappHero active elements on the DOM |
 
 ### How to Use for Developers
 
