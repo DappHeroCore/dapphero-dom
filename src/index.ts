@@ -136,9 +136,9 @@ function parseActiveElements(features: Features, projectData) {
 
           // Check if contract name exists in ABI
           const contractName = contractNameKey.value;
-          const contractInABI = projectData.contracts[contractName];
+          const contract = projectData.contracts.find(contract => contract.contractName === contractName) ;
 
-          if (!contractInABI) {
+          if (!contract) {
             return console.error(`Contract "${contractName}" does not exists on your project`);
           }
 
@@ -148,8 +148,7 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           // Get contract
-          const contract = projectData.contracts[contractName];
-          const contractABI = contract.abi;
+          const contractABI = contract.contractAbi;
 
           // Check if method name exists in ABI
           const methodName = methodNameKey.value;
@@ -203,7 +202,6 @@ function parseActiveElements(features: Features, projectData) {
                 const childrenElement = contractElements.find((contractElement) =>
                   contractElement.hasAttribute(property.attribute),
                 );
-                console.log('TCL: parseActiveElements -> childrenElement', childrenElement);
 
                 if (!childrenElement) {
                   return console.error(`Element with attribute "${property.attribute}" has not been found`);
@@ -449,14 +447,10 @@ function parseActiveElements(features: Features, projectData) {
 }
 
 // Run core logic
-export const getDomElements = async (apiUrl) => {
-  // TODO: This will came from API, and we'll sending the Token to the API
-  const res = await fetch(apiUrl);
-  const projectData = await res.json();
-
+export const getDomElements = async (projectData) => {
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
   return parsedActiveElements;
 };
 
 // Test:
-// getDomElements('http://www.mocky.io/v2/5e2f4a4b310000750071070b');
+// getDomElements();
