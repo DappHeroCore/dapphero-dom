@@ -24,7 +24,8 @@
   },
   "scripts": {
     "dev": "./start.sh",
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
     "publish:npm": "np",
     "publish:now": "npm run build && now ./dist/dapphero-dom.umd.js",
     "build": "microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",

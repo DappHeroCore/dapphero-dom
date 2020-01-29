@@ -5,7 +5,8 @@
 | Action     | Command            | Info                                 |
 | ---------- | ------------------ | ------------------------------------ |
 | Developing | `yarn dev`         | http://localhost:1234                |
-| Testing    | `yarn test`        | Jest in watch mode                   |
+| Testing    | `yarn test`        | Jest                                 |
+| Testing    | `yarn test:watch`  | Jest in watch mode                   |
 | Building   | `yarn build`       | Build for production                 |
 | Building   | `yarn build:watch` | Build for production with watch mode |
 | Publishing | `yarn publish:npm` | Publish to NPM                       |
