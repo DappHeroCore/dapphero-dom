@@ -26,7 +26,7 @@
     "dev": "./start.sh",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "publish:npm": "np",
+    "publish:npm": "npm run build && np",
     "publish:now": "npm run build && now ./dist/dapphero-dom.umd.js",
     "build": "microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
     "build:watch": "microbundle watch --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
