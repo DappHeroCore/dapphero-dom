@@ -159,6 +159,7 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           const isTransaction = contractMethod.stateMutability !== 'view';
+          const hasOutputs = contractMethod.outputs.length > 0
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
@@ -225,7 +226,7 @@ function parseActiveElements(features: Features, projectData) {
             })
             .filter(Boolean);
 
-          const hasParameters = childrenElements.some(
+          const hasInputs = childrenElements.some(
             (childrenElement) => childrenElement && childrenElement.id.includes('input'),
           );
 
@@ -233,7 +234,8 @@ function parseActiveElements(features: Features, projectData) {
             element,
             contract,
             isTransaction,
-            hasParameters,
+            hasInputs,
+            hasOutputs,
             childrenElements,
             feature,
             properties: sortedProperties,
@@ -349,6 +351,7 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           const isTransaction = contractMethod.stateMutability !== 'view';
+          const hasOutputs = contractMethod.outputs.length > 0
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
@@ -415,15 +418,17 @@ function parseActiveElements(features: Features, projectData) {
             })
             .filter(Boolean);
 
-          const hasParameters = childrenElements.some(
+          const hasInputs = childrenElements.some(
             (childrenElement) => childrenElement && childrenElement.id.includes('input'),
           );
+
 
           return {
             element,
             contract,
             isTransaction,
-            hasParameters,
+            hasInputs,
+            hasOutputs,
             childrenElements,
             feature,
             properties: sortedProperties,
@@ -447,10 +452,11 @@ function parseActiveElements(features: Features, projectData) {
 }
 
 // Run core logic
-export const getDomElements = async (projectData) => {
+export const getDomElements = (projectData) => {
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
   return parsedActiveElements;
 };
 
 // Test:
-// getDomElements();
+// import * as data from '../mock.json';
+// getDomElements(data);
