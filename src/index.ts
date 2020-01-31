@@ -126,8 +126,9 @@ function parseActiveElements(features: Features, projectData) {
 
         // Custom Contract Feature
         if (feature === availableFeatures.customContract) {
-          const contractNameKey = properties.find((property) => property.key === 'contractName');
+          const methodIdKey = properties.find((property) => property.key === 'methodId');
           const methodNameKey = properties.find((property) => property.key === 'methodName');
+          const contractNameKey = properties.find((property) => property.key === 'contractName');
 
           // Check if contract name exists in DOM
           if (!contractNameKey || !contractNameKey.value) {
@@ -136,7 +137,7 @@ function parseActiveElements(features: Features, projectData) {
 
           // Check if contract name exists in ABI
           const contractName = contractNameKey.value;
-          const contract = projectData.contracts.find(contract => contract.contractName === contractName) ;
+          const contract = projectData.contracts.find((contract) => contract.contractName === contractName);
 
           if (!contract) {
             return console.error(`Contract "${contractName}" does not exists on your project`);
@@ -144,13 +145,19 @@ function parseActiveElements(features: Features, projectData) {
 
           // Check if method name exists in DOM
           if (!methodNameKey || !methodNameKey.value) {
-            return console.error(`Contract name should be specified`);
+            return console.error(`Method name should be specified`);
+          }
+
+          // Check if method id exists in DOM
+          if (!methodIdKey || !methodIdKey.value) {
+            return console.error(`Method id should be specified`);
           }
 
           // Get contract
           const contractABI = contract.contractAbi;
 
           // Check if method name exists in ABI
+          const methodId = methodIdKey.value;
           const methodName = methodNameKey.value;
           const contractMethod = contractABI.find((method) => method.name === methodName);
 
@@ -159,16 +166,16 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           const isTransaction = contractMethod.stateMutability !== 'view';
-          const hasOutputs = contractMethod.outputs.length > 0
+          const hasOutputs = contractMethod.outputs.length > 0;
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
             (property) => property.type === 'children',
           );
 
-          // Get all elements with the contract name
+          // Get all elements (inputs, outputs, and invoke buttons) with the method name
           const contractElements = Array.from(
-            document.querySelectorAll(createAttributeSelector(`data-dh-property-contract-name`, contractName)),
+            document.querySelectorAll(createAttributeSelector(`data-dh-property-method-id`, methodId)),
           ).filter((element) => !(element.getAttribute('id') || '').includes('dh'));
 
           // Get all children elements
@@ -192,7 +199,11 @@ function parseActiveElements(features: Features, projectData) {
                       );
                     }
 
-                    return { element: input, id: property.id, argumentName: value };
+                    return {
+                      element: input,
+                      id: property.id,
+                      argumentName: value,
+                    };
                   })
                   .filter(Boolean);
 
@@ -351,7 +362,7 @@ function parseActiveElements(features: Features, projectData) {
           }
 
           const isTransaction = contractMethod.stateMutability !== 'view';
-          const hasOutputs = contractMethod.outputs.length > 0
+          const hasOutputs = contractMethod.outputs.length > 0;
 
           // Get customContract children properties
           const childrenProperties = features.customContract.dataProperties.filter(
@@ -422,7 +433,6 @@ function parseActiveElements(features: Features, projectData) {
             (childrenElement) => childrenElement && childrenElement.id.includes('input'),
           );
 
-
           return {
             element,
             contract,
@@ -458,5 +468,5 @@ export const getDomElements = (projectData) => {
 };
 
 // Test:
-// import * as data from '../mock.json';
+// const data = require('../mock.json');
 // getDomElements(data);

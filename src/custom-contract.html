@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>DappHero DOM - Playground - Custom Contract</title>
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" />
+  </head>
+
+  <body class="container">
+    <!-- Custom Contract -->
+    <h2 style="margin-bottom: 25px">Custom Contract</h2>
+
+    <!-- Method "hello" -->
+    <div class="headline">Method: "hello"</div>
+    <div class="headline">Payable: false - StateMutability: "view"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>no name - bytes32</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="hello"
+      data-dh-property-method-id="000"
+    >
+      <button data-dh-property-method-id="000" data-dh-property-invoke>
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="000" data-dh-property-outputs>
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "sendEthWithArgs" -->
+    <div class="headline">Method: "sendEthWithArgs"</div>
+    <div class="headline">Payable: true - StateMutability: "payable"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>message - bytes32</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="sendEthWithArgs"
+      data-dh-property-method-id="001"
+    >
+      <input
+        data-dh-property-method-id="001"
+        data-dh-property-contract-name="dappherotest"
+        data-dh-property-input-name="message"
+        class="w-input"
+        placeholder="Message:"
+      />
+
+      <button data-dh-property-method-id="001" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="001" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "viewMultipleArgsMultipleReturn" -->
+    <div class="headline">Method: "viewMultipleArgsMultipleReturn"</div>
+    <div class="headline">Payable: false - StateMutability: "view"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>from - address</li>
+        <li>multiplier - uint256</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>_balanceMultiplied - uint256</li>
+        <li>_hello - bytes32</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="viewMultipleArgsMultipleReturn"
+      data-dh-property-method-id="002"
+    >
+      <input data-dh-property-method-id="002" data-dh-property-input-name="from" class="w-input" placeholder="From:" />
+      <input
+        data-dh-property-method-id="002"
+        data-dh-property-input-name="multiplier"
+        class="w-input"
+        placeholder="Multiplier:"
+      />
+
+      <button data-dh-property-method-id="002" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="002" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "sendVariableEthNoArgs" -->
+    <div class="headline">Method: "sendVariableEthNoArgs"</div>
+    <div class="headline">Payable: true - StateMutability: "payable"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="sendVariableEthNoArgs"
+      data-dh-property-method-id="003"
+    >
+      <button data-dh-property-method-id="003" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="003" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "viewMultipleArgsSingleReturn" -->
+    <div class="headline">Method: "viewMultipleArgsSingleReturn"</div>
+    <div class="headline">Payable: false - StateMutability: "view"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>from - address</li>
+        <li>multiplier - uint256</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>_balanceMultiplied - uint256</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="viewMultipleArgsSingleReturn"
+      data-dh-property-method-id="004"
+    >
+      <input data-dh-property-method-id="004" data-dh-property-input-name="from" class="w-input" placeholder="From:" />
+
+      <input
+        data-dh-property-method-id="004"
+        data-dh-property-input-name="multiplier"
+        class="w-input"
+        placeholder="Multiplier:"
+      />
+
+      <button data-dh-property-method-id="004" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="004" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "viewNoArgsMultipleReturn" -->
+    <div class="headline">Method: "viewNoArgsMultipleReturn"</div>
+    <div class="headline">Payable: false - StateMutability: "view"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>_important - uint256</li>
+        <li>_hello - bytes32</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="viewNoArgsMultipleReturn"
+      data-dh-property-method-id="005"
+    >
+      <button data-dh-property-method-id="005" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="005" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "important" -->
+    <div class="headline">Method: "important"</div>
+    <div class="headline">Payable: false - StateMutability: "view"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>no name - uint256</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="important"
+      data-dh-property-method-id="006"
+    >
+      <button data-dh-property-method-id="006" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="006" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "sendVariableEthWithArgs" -->
+    <div class="headline">Method: "sendVariableEthWithArgs"</div>
+    <div class="headline">Payable: true - StateMutability: "payable"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>message - bytes32</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="sendVariableEthWithArgs"
+      data-dh-property-method-id="007"
+    >
+      <input
+        data-dh-property-method-id="007"
+        data-dh-property-input-name="message"
+        class="w-input"
+        placeholder="Message:"
+      />
+
+      <button data-dh-property-method-id="007" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="007" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "fee" -->
+    <div class="headline">Method: "fee"</div>
+    <div class="headline">Payable: false - StateMutability: "view"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>no name - uint256</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="fee"
+      data-dh-property-method-id="008"
+    >
+      <button data-dh-property-method-id="008" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="008" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "sendEthNoArgs" -->
+    <div class="headline">Method: "sendEthNoArgs"</div>
+    <div class="headline">Payable: true - StateMutability: "payable"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="sendEthNoArgs"
+      data-dh-property-method-id="009"
+    >
+      <button data-dh-property-method-id="009" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="009" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <hr style="margin-bottom: 65px" />
+
+    <!-- Method "triggerEvent" -->
+    <div class="headline">Method: "triggerEvent"</div>
+    <div class="headline">Payable: false - StateMutability: "nonpayable"</div>
+    <div class="headline">
+      <p>Inputs</p>
+      <ul>
+        <li>value - uint256</li>
+      </ul>
+
+      <p>Outputs</p>
+      <ul>
+        <li>none</li>
+      </ul>
+    </div>
+
+    <div
+      id="dh"
+      data-dh-feature="customContract"
+      data-dh-property-contract-name="dappherotest"
+      data-dh-property-method-name="triggerEvent"
+      data-dh-property-method-id="010"
+    >
+      <input
+        data-dh-property-method-id="010"
+        data-dh-property-input-name="message"
+        class="w-input"
+        placeholder="Value:"
+      />
+
+      <button data-dh-property-method-id="010" data-dh-property-invoke class="w-button">
+        Submit
+      </button>
+
+      <div data-dh-property-method-id="010" data-dh-property-outputs class="component-div">
+        *Return value: -*
+      </div>
+    </div>
+
+    <!-- To test: Parcel build -->
+    <script src="./index.ts"></script>
+  </body>
+</html>

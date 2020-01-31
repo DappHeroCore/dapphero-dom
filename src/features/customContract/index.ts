@@ -20,6 +20,13 @@ export const customContract = {
       position: null,
     },
     {
+      id: 'methodId',
+      attribute: `${DATA_PROPERTY}-method-id`,
+      required: true,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'inputName',
       attribute: `${DATA_PROPERTY}-input-name`,
       required: false,
