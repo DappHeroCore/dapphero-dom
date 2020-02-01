@@ -466,10 +466,9 @@ function parseActiveElements(features: Features, projectData) {
 // Run core logic
 export const getDomElements = (projectData) => {
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
-  console.log('TCL: getDomElements -> parsedActiveElements', parsedActiveElements);
   return parsedActiveElements;
 };
 
 // Test:
-const data = require('../mock.json');
-getDomElements(data);
+// const data = require('../mock.json');
+// getDomElements(data);
