@@ -27,6 +27,13 @@ export const customContract = {
       position: null,
     },
     {
+      id: 'ethValue',
+      attribute: `${DATA_PROPERTY}-eth-value`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'inputName',
       attribute: `${DATA_PROPERTY}-input-name`,
       required: false,
