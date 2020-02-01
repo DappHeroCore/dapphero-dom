@@ -190,6 +190,8 @@ function parseActiveElements(features: Features, projectData) {
                   .map((input) => {
                     const value = input.getAttribute(property.attribute);
 
+                    if (value === 'EthValue') return;
+
                     // Check each input name in ABI equals to the value defined in the DOM
                     const isInputFound = contractMethod.inputs.some((input) => input.name === value);
 
@@ -222,7 +224,7 @@ function parseActiveElements(features: Features, projectData) {
                 if (property.attribute.endsWith('output-name')) {
                   const value = childrenElement.getAttribute(property.attribute);
 
-                  // Check each input name in ABI equals to the value defined in the DOM
+                  // Check each output name in ABI equals to the value defined in the DOM
                   const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
 
                   if (!isOutputFound) {
@@ -464,9 +466,10 @@ function parseActiveElements(features: Features, projectData) {
 // Run core logic
 export const getDomElements = (projectData) => {
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
+  console.log('TCL: getDomElements -> parsedActiveElements', parsedActiveElements);
   return parsedActiveElements;
 };
 
 // Test:
-// const data = require('../mock.json');
-// getDomElements(data);
+const data = require('../mock.json');
+getDomElements(data);

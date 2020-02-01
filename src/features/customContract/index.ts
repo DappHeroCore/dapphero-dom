@@ -34,6 +34,13 @@ export const customContract = {
       position: null,
     },
     {
+      id: 'autoInvoke',
+      attribute: `${DATA_PROPERTY}-auto-invoke`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'inputName',
       attribute: `${DATA_PROPERTY}-input-name`,
       required: false,
