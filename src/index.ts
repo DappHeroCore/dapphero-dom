@@ -50,7 +50,7 @@ function parseActiveElements(features: Features, projectData) {
 
   // Get an array of elements and their respective properties
   // Filter unallowed features that DappHero doesn't handle
-  const parsedElements = activeElements
+  const parsedElements: {[key:string]: any} = activeElements
     .map((element: HTMLElement) => {
       const dataset = getElementDataset(element);
       const attributeMode = getAttributeMode(dataset);
@@ -460,7 +460,12 @@ function parseActiveElements(features: Features, projectData) {
     })
     .filter(Boolean);
 
-  return parsedElements.map((parsedElement) => ({ ...parsedElement, id: shortid.generate() }));
+  return parsedElements.map((parsedElement) => ({
+     ...parsedElement,
+     id: shortid.generate(),
+     properties_: parsedElement.properties.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {}),
+     modifiers_: parsedElement.modifiers.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {}),
+ }));
 }
 
 // Run core logic
