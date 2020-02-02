@@ -74,6 +74,7 @@ export const customContract = {
     },
   ],
   dataModifiers: [
+    // ! Deprecated Please use displayUnits or inputUnits instead
     {
       id: 'units',
       defaultValue: 'wei',
@@ -81,9 +82,29 @@ export const customContract = {
       validator: (value) => ['wei', 'ether'].includes(value),
     },
     {
+      id: 'displayUnits',
+      defaultValue: 'ether',
+      attribute: `${DATA_MODIFIER}-displayUnits`,
+      validator: (value) => ['wei', 'ether'].includes(value),
+    },
+    {
+      id: 'inputUnits',
+      defaultValue: 'wei',
+      attribute: `${DATA_MODIFIER}-inputUnits`,
+      validator: (value) => ['wei', 'ether'].includes(value),
+    },
+
+    // ! Deprecated Please use displayDecimals instead
+    {
       id: 'decimals',
       defaultValue: '10',
       attribute: `${DATA_MODIFIER}-decimals`,
+      validator: (value) => !isNaN(value) && Number.isInteger(Number(value)),
+    },
+    {
+      id: 'displayDecimals',
+      defaultValue: '3',
+      attribute: `${DATA_MODIFIER}-displayDecimals`,
       validator: (value) => !isNaN(value) && Number.isInteger(Number(value)),
     },
     {

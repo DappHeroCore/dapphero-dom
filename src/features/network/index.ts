@@ -47,6 +47,13 @@ export const network = {
       validator: null,
       position: null,
     },
+    {
+      id: 'inputName',
+      attribute: `${DATA_PROPERTY}-inputName`,
+      required: false,
+      validator: null,
+      position: null,
+    },
   ],
   dataModifiers: [
     {
@@ -54,6 +61,24 @@ export const network = {
       defaultValue: 'wei',
       attribute: `${DATA_MODIFIER}-units`,
       validator: (value) => ['wei', 'ether'].includes(value),
+    },
+    {
+      id: 'inputUnits',
+      defaultValue: 'wei',
+      attribute: `${DATA_MODIFIER}-inputUnits`,
+      validator: (value) => ['wei', 'ether'].includes(value),
+    },
+    {
+      id: 'displayUnits',
+      defaultValue: 'ether',
+      attribute: `${DATA_MODIFIER}-displayUnits`,
+      validator: (value) => ['wei', 'ether'].includes(value),
+    },
+    {
+      id: 'displayDecimals',
+      defaultValue: 3,
+      attribute: `${DATA_MODIFIER}-displayDecimals`,
+      validator: (value) => !Number.isNaN(value) && Number.isInteger(Number(value)),
     },
   ],
 };
