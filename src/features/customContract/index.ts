@@ -84,13 +84,13 @@ export const customContract = {
     {
       id: 'displayUnits',
       defaultValue: 'ether',
-      attribute: `${DATA_MODIFIER}-displayUnits`,
+      attribute: `${DATA_MODIFIER}-display_units`,
       validator: (value) => ['wei', 'ether'].includes(value),
     },
     {
       id: 'inputUnits',
       defaultValue: 'wei',
-      attribute: `${DATA_MODIFIER}-inputUnits`,
+      attribute: `${DATA_MODIFIER}-input_units`,
       validator: (value) => ['wei', 'ether'].includes(value),
     },
 
@@ -104,7 +104,7 @@ export const customContract = {
     {
       id: 'displayDecimals',
       defaultValue: '3',
-      attribute: `${DATA_MODIFIER}-displayDecimals`,
+      attribute: `${DATA_MODIFIER}-display_decimals`,
       validator: (value) => !isNaN(value) && Number.isInteger(Number(value)),
     },
     {

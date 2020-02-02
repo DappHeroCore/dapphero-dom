@@ -49,7 +49,7 @@ export const network = {
     },
     {
       id: 'inputname',
-      attribute: `${DATA_PROPERTY}-inputname`,
+      attribute: `${DATA_PROPERTY}-input_name`,
       required: false,
       validator: null,
       position: null,
@@ -65,19 +65,19 @@ export const network = {
     {
       id: 'inputunits',
       defaultValue: 'wei',
-      attribute: `${DATA_MODIFIER}-inputunits`,
+      attribute: `${DATA_MODIFIER}-input_units`,
       validator: (value) => ['wei', 'ether'].includes(value),
     },
     {
       id: 'displayunits',
       defaultValue: 'ether',
-      attribute: `${DATA_MODIFIER}-displayunits`,
+      attribute: `${DATA_MODIFIER}-display_units`,
       validator: (value) => ['wei', 'ether'].includes(value),
     },
     {
       id: 'displaydecimals',
       defaultValue: 3,
-      attribute: `${DATA_MODIFIER}-displaydecimals`,
+      attribute: `${DATA_MODIFIER}-display_decimals`,
       validator: (value) => !Number.isNaN(value) && Number.isInteger(Number(value)),
     },
   ],
