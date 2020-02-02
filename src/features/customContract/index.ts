@@ -82,13 +82,13 @@ export const customContract = {
       validator: (value) => ['wei', 'ether'].includes(value),
     },
     {
-      id: 'displayUnits',
+      id: 'display_units',
       defaultValue: 'ether',
       attribute: `${DATA_MODIFIER}-display_units`,
       validator: (value) => ['wei', 'ether'].includes(value),
     },
     {
-      id: 'inputUnits',
+      id: 'input_units',
       defaultValue: 'wei',
       attribute: `${DATA_MODIFIER}-input_units`,
       validator: (value) => ['wei', 'ether'].includes(value),
@@ -102,7 +102,7 @@ export const customContract = {
       validator: (value) => !isNaN(value) && Number.isInteger(Number(value)),
     },
     {
-      id: 'displayDecimals',
+      id: 'display_decimals',
       defaultValue: '3',
       attribute: `${DATA_MODIFIER}-display_decimals`,
       validator: (value) => !isNaN(value) && Number.isInteger(Number(value)),
