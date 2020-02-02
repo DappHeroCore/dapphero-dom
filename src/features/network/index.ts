@@ -1,5 +1,5 @@
 // Constants
-import { DATA_FEATURE, DATA_PROPERTY } from '~/lib/constants';
+import { DATA_FEATURE, DATA_PROPERTY, DATA_MODIFIER } from '~/lib/constants';
 
 export const network = {
   id: 'network',
@@ -48,5 +48,12 @@ export const network = {
       position: null,
     },
   ],
-  dataModifiers: [],
+  dataModifiers: [
+    {
+      id: 'units',
+      defaultValue: 'wei',
+      attribute: `${DATA_MODIFIER}-units`,
+      validator: (value) => ['wei', 'ether'].includes(value),
+    },
+  ],
 };

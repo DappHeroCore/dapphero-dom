@@ -47,6 +47,6 @@ describe('Test Network dataProperties', () => {
 
 describe('Test Network dataModifiers', () => {
   test(`if doesn't have any modifier defined`, () => {
-    expect(network.dataModifiers.length === 0).toBe(true);
+    expect(network.dataModifiers.length === 0).toBe(false);
   });
 });
