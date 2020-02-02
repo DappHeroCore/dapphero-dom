@@ -20,6 +20,20 @@ export const network = {
       position: null,
     },
     {
+      id: 'transfer',
+      attribute: `${DATA_PROPERTY}-transfer`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
+      id: 'enable',
+      attribute: `${DATA_PROPERTY}-enable`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'name',
       attribute: `${DATA_PROPERTY}-name`,
       required: false,

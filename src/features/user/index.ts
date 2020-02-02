@@ -19,6 +19,20 @@ export const user = {
       validator: null,
       position: null,
     },
+    {
+      id: 'toEns',
+      attribute: `${DATA_PROPERTY}-toEns`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
+      id: 'fromEns',
+      attribute: `${DATA_PROPERTY}-fromEns`,
+      required: false,
+      validator: null,
+      position: null,
+    },
   ],
   dataModifiers: [
     {

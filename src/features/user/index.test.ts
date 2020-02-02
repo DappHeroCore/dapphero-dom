@@ -13,7 +13,7 @@ describe('Test User dataAttribute', () => {
 });
 
 describe('Test User dataProperties', () => {
-  const properties = ['address', 'balance'];
+  const properties = ['address', 'balance', 'toEns', 'fromEns'];
 
   test(`if all properties are defined`, () => {
     const userProperties = user.dataProperties.map(({ id }) => id);
