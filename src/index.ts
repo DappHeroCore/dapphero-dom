@@ -51,7 +51,7 @@ function parseActiveElements(features: Features, projectData) {
 
   // Get an array of elements and their respective properties
   // Filter unallowed features that DappHero doesn't handle
-  const parsedElements: {[key:string]: any} = activeElements
+  const parsedElements: { [key: string]: any } = activeElements
     .map((element: HTMLElement) => {
       const dataset = getElementDataset(element);
       const attributeMode = getAttributeMode(dataset);
@@ -92,11 +92,7 @@ function parseActiveElements(features: Features, projectData) {
           .map(([key, value]) => {
             if (/property/gi.test(key)) return null;
 
-            const parsedKey = lowerFirst(
-              key
-              .replace('dh', '')
-              .replace('Modifier', '')
-            )
+            const parsedKey = lowerFirst(key.replace('dh', '').replace('Modifier', ''));
 
             const availableModifiers = availableFeaturesModifiers[feature];
             const defaultValue = availableModifiers.defaultValues[parsedKey];
@@ -109,7 +105,7 @@ function parseActiveElements(features: Features, projectData) {
           .filter(({ key, value }) => {
             const availableModifiers = availableFeaturesModifiers[feature];
             const isModifier = availableModifiers.modifiers.includes(key);
-            
+
             if (!isModifier) {
               return console.error(`Modifier "${key}" is not allowed on Feature "${feature}"`);
             }
@@ -192,12 +188,10 @@ function parseActiveElements(features: Features, projectData) {
                   .map((input) => {
                     const value = input.getAttribute(property.attribute);
 
-                    if (value === 'EthValue') return;
-
                     // Check each input name in ABI equals to the value defined in the DOM
                     const isInputFound = contractMethod.inputs.some((input) => input.name === value);
 
-                    if (!isInputFound) {
+                    if (value !== 'EthValue' && !isInputFound) {
                       return console.error(
                         `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
                       );
@@ -460,13 +454,13 @@ function parseActiveElements(features: Features, projectData) {
       }
     })
     .filter(Boolean);
-    
+
   return parsedElements.map((parsedElement) => ({
-     ...parsedElement,
-     id: shortid.generate(),
-     properties_: parsedElement.properties.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {}),
-     modifiers_: parsedElement.modifiers.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {}),
- }));
+    ...parsedElement,
+    id: shortid.generate(),
+    properties_: parsedElement.properties.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {}),
+    modifiers_: parsedElement.modifiers.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {}),
+  }));
 }
 
 // Run core logic
