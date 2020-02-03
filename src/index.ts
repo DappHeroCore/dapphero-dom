@@ -1,5 +1,6 @@
 import shortid from 'shortid';
 import sanitizeHtml from 'sanitize-html';
+import lowerFirst from 'lodash.lowerfirst';
 
 // Types
 import { Features } from '~/lib/types';
@@ -91,10 +92,11 @@ function parseActiveElements(features: Features, projectData) {
           .map(([key, value]) => {
             if (/property/gi.test(key)) return null;
 
-            const parsedKey = key
+            const parsedKey = lowerFirst(
+              key
               .replace('dh', '')
               .replace('Modifier', '')
-              .toLowerCase();
+            )
 
             const availableModifiers = availableFeaturesModifiers[feature];
             const defaultValue = availableModifiers.defaultValues[parsedKey];
@@ -107,7 +109,7 @@ function parseActiveElements(features: Features, projectData) {
           .filter(({ key, value }) => {
             const availableModifiers = availableFeaturesModifiers[feature];
             const isModifier = availableModifiers.modifiers.includes(key);
-
+            
             if (!isModifier) {
               return console.error(`Modifier "${key}" is not allowed on Feature "${feature}"`);
             }
@@ -293,7 +295,6 @@ function parseActiveElements(features: Features, projectData) {
 
             return isPropertyAllowed;
           });
-
         const modifiers = values
           .flatMap((str) => {
             if (!str.includes('modifier')) return null;
@@ -459,7 +460,7 @@ function parseActiveElements(features: Features, projectData) {
       }
     })
     .filter(Boolean);
-
+    
   return parsedElements.map((parsedElement) => ({
      ...parsedElement,
      id: shortid.generate(),

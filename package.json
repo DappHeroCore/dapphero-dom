@@ -27,7 +27,7 @@
     "test:watch": "jest --watchAll",
     "publish:npm": "np",
     "publish:now": "now ./dist/dapphero-dom.umd.js",
-    "build": "microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
+    "build": "rm -r dist/* && microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
     "build:watch": "microbundle watch --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
   },
   "browserslist": [
