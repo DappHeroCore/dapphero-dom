@@ -76,7 +76,7 @@ export const network = {
     },
     {
       id: 'displayDecimals',
-      defaultValue: 3,
+      defaultValue: '3',
       attribute: `${DATA_MODIFIER}-display-decimals`,
       validator: (value) => !Number.isNaN(value) && Number.isInteger(Number(value)),
     },

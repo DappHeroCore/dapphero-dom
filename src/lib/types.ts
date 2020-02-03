@@ -76,8 +76,8 @@ export type ActiveElement = {
   contract?: Contract;
   childrenElements?: ChildrenElement[];
   properties: Property[];
-  properties_: {[key: string]: string};
-  modifiers_: {[key: string]: string};
+  properties_: { [key: string]: string };
+  modifiers_: { [key: string]: string };
   feature: AvailableFeatures;
   attributeMode: 'id' | 'data';
 };
