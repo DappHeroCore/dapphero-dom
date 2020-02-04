@@ -5,7 +5,13 @@ import { Features, AvailableFeaturesMap, FeaturesEntries, PropertiesPositions, A
 import { DH } from '~/lib/constants';
 
 export const getActiveElements = () => {
-  const activeElements = Array.from(document.querySelectorAll(`[id*="${DH}"]`));
+  //const activeElements = Array.from(document.querySelectorAll(`[id*="${DH}"]`));
+  const elements = Array.from(document.querySelectorAll('*'))
+  const activeElements = elements.filter(element => {
+    const attributes = Object.keys(element.attributes)
+    if (attributes.find((attribute) => attribute.includes('data-dh'))) return true
+    return false
+  })
   return activeElements;
 };
 
