@@ -27,8 +27,8 @@
     "test:watch": "jest --watchAll",
     "publish:npm": "np",
     "publish:now": "now ./dist/dapphero-dom.umd.js",
-    "build": "rm -rf dist/* && microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
-    "build:watch": "microbundle watch --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
+    "build": "rm -rf dist/* && microbundle --no-compress --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
+    "build:watch": "microbundle watch --no-compress --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
   },
   "browserslist": [
     "last 1 Chrome version"
