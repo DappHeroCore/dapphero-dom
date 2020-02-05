@@ -1,6 +1,6 @@
 {
   "name": "@dapphero/dapphero-dom",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "license": "MIT",
   "source": "src/index.ts",
   "main": "dist/dapphero-dom.js",
@@ -28,7 +28,7 @@
     "publish:npm": "np",
     "publish:now": "now ./dist/dapphero-dom.umd.js",
     "build": "rm -rf dist/* && microbundle --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid",
-    "build:watch": "microbundle watch --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
+    "build:watch": "microbundle watch --no-compress --name dappHeroDom --tsconfig tsconfig.json --external lodash.isempty=isEmpty,sanitize-html=sanitizeHtml,lodash.lowerfirst=lowerFirst,shortid=shortid"
   },
   "browserslist": [
     "last 1 Chrome version"

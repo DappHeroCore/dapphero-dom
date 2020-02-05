@@ -8,8 +8,10 @@ export const getActiveElements = () => {
   //const activeElements = Array.from(document.querySelectorAll(`[id*="${DH}"]`));
   const elements = Array.from(document.querySelectorAll('*'))
   const activeElements = elements.filter(element => {
-    const attributes = Object.keys(element.attributes)
-    if (attributes.find((attribute) => attribute.includes('data-dh'))) return true
+    const attributes = Array.from(Object.values(element.attributes))
+      const hasAttribute = attributes.find((attribute) => {
+      return attribute.name.includes('data-dh-feature')})
+    if (hasAttribute) return true
     return false
   })
   console.log("The active Elements: ", activeElements)

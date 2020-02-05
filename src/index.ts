@@ -178,6 +178,12 @@ function parseActiveElements(features: Features, projectData) {
             document.querySelectorAll(createAttributeSelector(`data-dh-property-method-id`, methodId)),
           ).filter((element) => !(element.getAttribute('id') || '').includes('dh'));
 
+          // const contractElements = Array.from(
+          //   document.querySelectorAll(createAttributeSelector(`data-dh-property-method-id`, methodId)),
+          // ).filter((element) => (
+          //   Object.values(element.attributes).filter((attribute) => !(attribute.name.includes('data-dh-feature'))).length
+          // ))
+
           // Get all children elements
           const childrenElements = childrenProperties
             .map((property) => {
@@ -214,9 +220,11 @@ function parseActiveElements(features: Features, projectData) {
                 const childrenElement = contractElements.find((contractElement) =>
                   contractElement.hasAttribute(property.attribute),
                 );
-
+                
+                // TODO: [DEV-121] Figure out why validation fails when output-name is not included
                 if (!childrenElement) {
-                  return console.error(`Element with attribute "${property.attribute}" has not been found`);
+                  return
+                  return console.error(`Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(property, null, 4)}`);
                 }
 
                 if (property.attribute.endsWith('output-name')) {
