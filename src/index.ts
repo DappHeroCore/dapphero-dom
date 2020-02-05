@@ -33,9 +33,11 @@ import {
 // Core logic
 function parseActiveElements(features: Features, projectData) {
   const activeElements = getActiveElements();
+  console.log("TCL: parseActiveElements -> activeElements", activeElements)
 
   // Get all available features
   const availableFeatures = getAvailableFeatures(features);
+  console.log("TCL: parseActiveElements -> availableFeatures", availableFeatures)
 
   // Get all available features properties
   const availableFeaturesProperties = getAvailableProperties(features);
@@ -157,7 +159,7 @@ function parseActiveElements(features: Features, projectData) {
           // Check if method name exists in ABI
           const methodId = methodIdKey.value;
           const methodName = methodNameKey.value;
-          const contractMethod = contractABI.find((method) => method.name === methodName);
+          const contractMethod = contractABI.find((method) => methodName.startsWith(method.name));
 
           if (!contractMethod) {
             return console.error(`Method name "${methodName}" does not exists on the contract ABI`);

@@ -12,6 +12,7 @@ export const getActiveElements = () => {
     if (attributes.find((attribute) => attribute.includes('data-dh'))) return true
     return false
   })
+  console.log("The active Elements: ", activeElements)
   return activeElements;
 };
 
