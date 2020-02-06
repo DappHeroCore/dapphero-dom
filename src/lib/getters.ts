@@ -14,7 +14,6 @@ export const getActiveElements = () => {
     if (hasAttribute) return true
     return false
   })
-  console.log("The active Elements: ", activeElements)
   return activeElements;
 };
 

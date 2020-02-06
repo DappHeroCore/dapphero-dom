@@ -33,11 +33,9 @@ import {
 // Core logic
 function parseActiveElements(features: Features, projectData) {
   const activeElements = getActiveElements();
-  console.log("TCL: parseActiveElements -> activeElements", activeElements)
 
   // Get all available features
   const availableFeatures = getAvailableFeatures(features);
-  console.log("TCL: parseActiveElements -> availableFeatures", availableFeatures)
 
   // Get all available features properties
   const availableFeaturesProperties = getAvailableProperties(features);
