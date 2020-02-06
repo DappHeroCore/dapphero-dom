@@ -46,7 +46,7 @@ describe('Test customContract dataProperties', () => {
 });
 
 describe(`Test customContract dataModifiers`, () => {
-  const modifiers = ['units', 'decimals', 'display'];
+  const modifiers = ['displayUnits', 'contractUnits', 'displayDecimals', 'display'];
 
   test(`if all modifiers are defined`, () => {
     const userModifiers = customContract.dataModifiers.map(({ id }) => id);
