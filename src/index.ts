@@ -57,24 +57,28 @@ function parseActiveElements(features: Features, projectData) {
       const attributeMode = getAttributeMode(dataset);
 
       if (attributeMode === 'data') {
-        // Disable DH engine
+        // Disable DH engine if there is a data-dh-enabled=false attribute
         const enabled = dataset.dhEnabled;
         const isDisabled = enabled && enabled === 'false';
         if (isDisabled) return null;
 
+        // get the value of the data-dh-feature attribute
         const feature = element.getAttribute(DATA_FEATURE);
 
         if (!feature) {
           return console.error(`Feature attribute was not added to the element`);
         }
 
+        // Check to see if feature is on the allowed list
         const isAllowedFeature = availableFeatures[feature];
 
         if (!isAllowedFeature) {
           return console.error(`Feature "${feature}" not allowed`);
         }
 
-        const properties = getDataElementProperties(dataset)
+        const dataElementProperties = getDataElementProperties(dataset)
+        // Get array of objects whose key, value is the key value pair of properties, filtered by the allowed properties list
+        const properties = dataElementProperties
           .filter(Boolean)
           .filter(({ key }) => !dataAttributesToExclude.includes(key))
           .filter(({ key }) => {
@@ -88,10 +92,12 @@ function parseActiveElements(features: Features, projectData) {
             return isPropertyAllowed;
           });
 
+        // Build modifiers object based on if its allowed and using default values
         const modifiers = Object.entries(dataset)
           .map(([key, value]) => {
             if (/property/gi.test(key)) return null;
 
+            // Remove the dh and Modifier workds from the key and make it camelCase
             const parsedKey = lowerFirst(key.replace('dh', '').replace('Modifier', ''));
 
             const availableModifiers = availableFeaturesModifiers[feature];
@@ -214,6 +220,34 @@ function parseActiveElements(features: Features, projectData) {
                 if (!parsedInputs.length) return null;
 
                 return { element: parsedInputs, id: property.id };
+              } else if (property.attribute.includes('output')) {
+                const childrenElements = contractElements.filter((contractElement) =>
+                  contractElement.hasAttribute(property.attribute),
+                );
+                
+                // TODO: [DEV-121] Figure out why validation fails when output-name is not included
+                if (!childrenElements.length) {
+                  return
+                  return console.error(`Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(property, null, 4)}`);
+                }
+                const parsedChilrenElements = childrenElements.map((childrenElement) => {
+
+                  if (property.attribute.endsWith('output-name')) {
+                    const value = childrenElement.getAttribute(property.attribute);
+  
+                    // Check each output name in ABI equals to the value defined in the DOM
+                    const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
+  
+                    if (!isOutputFound) {
+                      return console.error(
+                        `Output name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                      );
+                    }
+                  }
+                  return { element: childrenElement, id: property.id };
+                })
+
+                return { element: parsedChilrenElements, id: property.id };
               } else {
                 const childrenElement = contractElements.find((contractElement) =>
                   contractElement.hasAttribute(property.attribute),
@@ -225,18 +259,18 @@ function parseActiveElements(features: Features, projectData) {
                   return console.error(`Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(property, null, 4)}`);
                 }
 
-                if (property.attribute.endsWith('output-name')) {
-                  const value = childrenElement.getAttribute(property.attribute);
+                // if (property.attribute.endsWith('output-name')) {
+                //   const value = childrenElement.getAttribute(property.attribute);
 
-                  // Check each output name in ABI equals to the value defined in the DOM
-                  const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
+                //   // Check each output name in ABI equals to the value defined in the DOM
+                //   const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
 
-                  if (!isOutputFound) {
-                    return console.error(
-                      `Output name "${value}" for method ${methodName} does not exists on the contract ABI`,
-                    );
-                  }
-                }
+                //   if (!isOutputFound) {
+                //     return console.error(
+                //       `Output name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                //     );
+                //   }
+                // }
 
                 return { element: childrenElement, id: property.id };
               }
