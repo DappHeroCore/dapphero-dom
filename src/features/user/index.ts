@@ -1,5 +1,5 @@
 // Constants
-import { DATA_PROPERTY, DATA_FEATURE, DATA_MODIFIER } from '~/lib/constants';
+import { DATA_PROPERTY, DATA_FEATURE, DATA_MODIFIER } from '../../lib/constants';
 
 export const user = {
   id: 'user',

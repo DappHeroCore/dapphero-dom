@@ -3,4 +3,4 @@
 set -e
 
 "$(npm bin)/tsc" --noEmit --watch &
-"$(npm bin)/parcel" ./src/custom-contract.html
+"$(npm bin)/parcel" ./src/views/anonymous-inputs.html

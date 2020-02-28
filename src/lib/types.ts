@@ -83,7 +83,7 @@ export type ActiveElement = {
 };
 
 export type AvailableProperties = {
-  [key in AvailableFeatures]?: Pick<Property, 'id'>;
+  [key in AvailableFeatures]?: Pick<Property, 'key'>;
 };
 
 export type AvailableFeaturesMap = {

@@ -1,5 +1,5 @@
 // Constants
-import { DATA_FEATURE, DATA_PROPERTY, DATA_MODIFIER } from '~/lib/constants';
+import { DATA_FEATURE, DATA_PROPERTY, DATA_MODIFIER } from '../../lib/constants';
 
 export const network = {
   id: 'network',

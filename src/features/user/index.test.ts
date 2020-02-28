@@ -1,5 +1,5 @@
 // Constants
-import { DATA_FEATURE } from '~/lib/constants';
+import { DATA_FEATURE } from '../../lib/constants';
 
 // Feature
 import { user } from './index';

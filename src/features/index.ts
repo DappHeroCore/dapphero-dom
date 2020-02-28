@@ -1,11 +1,11 @@
 // Types
-import { Features } from '~/lib/types';
+import { Features } from '../lib/types';
 
 // Features
-import { user } from '~/features/user/index';
-import { threebox } from '~/features/3box/index';
-import { network } from '~/features/network/index';
-import { customContract } from '~/features/customContract/index';
+import { user } from './user/index';
+import { threebox } from './3box/index';
+import { network } from './network/index';
+import { customContract } from './customContract/index';
 
 export const FEATURES: Features = {
   user,

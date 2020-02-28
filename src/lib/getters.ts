@@ -1,19 +1,17 @@
 // Types
-import { Features, AvailableFeaturesMap, FeaturesEntries, PropertiesPositions, AvailableProperties } from '~/lib/types';
-
-// Constants
-import { DH } from '~/lib/constants';
+import { Features, AvailableFeaturesMap, FeaturesEntries, PropertiesPositions, AvailableProperties } from './types';
 
 export const getActiveElements = () => {
   //const activeElements = Array.from(document.querySelectorAll(`[id*="${DH}"]`));
-  const elements = Array.from(document.querySelectorAll('*'))
-  const activeElements = elements.filter(element => {
-    const attributes = Array.from(Object.values(element.attributes))
-      const hasAttribute = attributes.find((attribute) => {
-      return attribute.name.includes('data-dh-feature')})
-    if (hasAttribute) return true
-    return false
-  })
+  const elements = Array.from(document.querySelectorAll('*'));
+  const activeElements = elements.filter((element) => {
+    const attributes = Array.from(Object.values(element.attributes));
+    const hasAttribute = attributes.find((attribute) => {
+      return attribute.name.includes('data-dh-feature');
+    });
+    if (hasAttribute) return true;
+    return false;
+  });
   return activeElements;
 };
 
