@@ -3,10 +3,10 @@ import sanitizeHtml from 'sanitize-html';
 import lowerFirst from 'lodash.lowerfirst';
 
 // Types
-import { Features } from '~/lib/types';
+import { Features } from './lib/types';
 
 // Constants
-import { DATA_FEATURE } from '~/lib/constants';
+import { DATA_FEATURE } from './lib/constants';
 
 // Getters
 import {
@@ -15,20 +15,19 @@ import {
   getAvailableModifiers,
   getAvailableProperties,
   getFeaturesPropertiesPosition,
-} from '~/lib/getters';
+} from './lib/getters';
 
 // Features
-import { FEATURES } from '~/features/index';
+import { FEATURES } from './features/index';
 
 // Utils
 import {
   sortProperties,
   getAttributeMode,
   getElementDataset,
-  getIdElementProperties,
   getDataElementProperties,
   createAttributeSelector,
-} from '~/lib/utils';
+} from './lib/utils';
 
 // Core logic
 function parseActiveElements(features: Features, projectData) {
@@ -76,7 +75,7 @@ function parseActiveElements(features: Features, projectData) {
           return console.error(`Feature "${feature}" not allowed`);
         }
 
-        const dataElementProperties = getDataElementProperties(dataset)
+        const dataElementProperties = getDataElementProperties(dataset);
         // Get array of objects whose key, value is the key value pair of properties, filtered by the allowed properties list
         const properties = dataElementProperties
           .filter(Boolean)
@@ -203,9 +202,18 @@ function parseActiveElements(features: Features, projectData) {
                     // Check each input name in ABI equals to the value defined in the DOM
                     const isInputFound = contractMethod.inputs.some((input) => input.name === value);
 
-                    if (value !== 'EthValue' && !isInputFound) {
+                    const emptyString = '$true';
+                    const isEmptyString = value === emptyString;
+
+                    if (!['EthValue', emptyString].includes(value) && !isInputFound) {
                       return console.error(
                         `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                      );
+                    }
+
+                    if (isEmptyString && contractMethod.inputs.length > 1) {
+                      return console.error(
+                        `Input with empty string (anonymous input) cannot be set since exists more than one input on the contract ABI`,
                       );
                     }
 
@@ -224,20 +232,25 @@ function parseActiveElements(features: Features, projectData) {
                 const childrenElements = contractElements.filter((contractElement) =>
                   contractElement.hasAttribute(property.attribute),
                 );
-                
+
                 // TODO: [DEV-121] Figure out why validation fails when output-name is not included
                 if (!childrenElements.length) {
-                  return
-                  return console.error(`Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(property, null, 4)}`);
+                  return;
+                  return console.error(
+                    `Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(
+                      property,
+                      null,
+                      4,
+                    )}`,
+                  );
                 }
                 const parsedChilrenElements = childrenElements.map((childrenElement) => {
-
                   if (property.attribute.endsWith('output-name')) {
                     const value = childrenElement.getAttribute(property.attribute);
-  
+
                     // Check each output name in ABI equals to the value defined in the DOM
                     const isOutputFound = contractMethod.outputs.some((output) => output.name === value);
-  
+
                     if (!isOutputFound) {
                       return console.error(
                         `Output name "${value}" for method ${methodName} does not exists on the contract ABI`,
@@ -245,18 +258,24 @@ function parseActiveElements(features: Features, projectData) {
                     }
                   }
                   return { element: childrenElement, id: property.id };
-                })
+                });
 
                 return { element: parsedChilrenElements, id: property.id };
               } else {
                 const childrenElement = contractElements.find((contractElement) =>
                   contractElement.hasAttribute(property.attribute),
                 );
-                
+
                 // TODO: [DEV-121] Figure out why validation fails when output-name is not included
                 if (!childrenElement) {
-                  return
-                  return console.error(`Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(property, null, 4)}`);
+                  return;
+                  return console.error(
+                    `Element with attribute "${property.attribute}" has not been found for property: ${JSON.stringify(
+                      property,
+                      null,
+                      4,
+                    )}`,
+                  );
                 }
 
                 // if (property.attribute.endsWith('output-name')) {
@@ -297,7 +316,6 @@ function parseActiveElements(features: Features, projectData) {
 
         return { element, feature, properties: sortedProperties, modifiers, attributeMode };
       }
-      
     })
     .filter(Boolean);
 
@@ -317,4 +335,4 @@ export const getDomElements = (projectData) => {
 
 // Test:
 // const data = require('../mock.json');
-// getDomElements(data);
+// const domElements = getDomElements(data);
