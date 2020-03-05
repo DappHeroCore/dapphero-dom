@@ -19,7 +19,7 @@
     "np": "^6.2.0",
     "parcel-bundler": "^1.12.4",
     "ts-jest": "^25.2.1",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "dev": "./start.sh",
