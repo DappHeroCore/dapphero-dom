@@ -48,3 +48,59 @@ export const getDataElementProperties = (dataset: DOMStringMap) => {
 
   return parsedProperties;
 };
+
+export const getModifiers = (dataset, availableFeaturesModifiers, dataAttributesToExclude, feature) => {
+  return Object.entries(dataset)
+    .map(([key, value]) => {
+      if (/property/gi.test(key)) return null;
+
+      // Remove the dh and Modifier workds from the key and make it camelCase
+      const parsedKey = lowerFirst(key.replace('dh', '').replace('Modifier', ''));
+
+      const availableModifiers = availableFeaturesModifiers[feature];
+      const defaultValue = availableModifiers.defaultValues[parsedKey];
+      const parsedValue = value || defaultValue;
+
+      return { key: parsedKey, value: sanitizeHtml(parsedValue) };
+    })
+    .filter(Boolean)
+    .filter(({ key }) => !dataAttributesToExclude.includes(key))
+    .filter(({ key, value }) => {
+      const availableModifiers = availableFeaturesModifiers[feature];
+      const isModifier = availableModifiers.modifiers.includes(key);
+
+      if (!isModifier) {
+        return console.error(`Modifier "${key}" is not allowed on Feature "${feature}"`);
+      }
+
+      const validator = availableModifiers.validators[key];
+      const isValid = validator(value);
+
+      if (!isValid) {
+        return console.error(`Modifier "${key}" with value "${value}" is not valid`);
+      }
+
+      return true;
+    });
+};
+
+export const getProperties = (
+  dataElementProperties,
+  dataAttributesToExclude,
+  availableFeaturesProperties,
+  feature,
+): any => {
+  return dataElementProperties
+    .filter(Boolean)
+    .filter(({ key }) => !dataAttributesToExclude.includes(key))
+    .filter(({ key }) => {
+      const availableFeatureProperties = availableFeaturesProperties[feature];
+      const isPropertyAllowed = availableFeatureProperties.includes(key);
+
+      if (!isPropertyAllowed) {
+        return console.error(`Property "${key}" is not allowed on Feature "${feature}"`);
+      }
+
+      return isPropertyAllowed;
+    });
+};

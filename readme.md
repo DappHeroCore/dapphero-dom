@@ -589,7 +589,55 @@ Network feature has no modifiers available.
 
 ### NFT
 
-WIP
+1. Define one HTML element with the following attributes:
+
+
+    a. Define an unique id in "data-dh-property-tag-id"
+
+    <br/>
+
+    b. Choose from who we want to the NFTs:
+    - Get NFTs from an owner
+    `Define one account address in "data-dh-property-asset-account-address" attribute`
+
+    - Get NFTs from an contract address
+    `Define one account address in "data-dh-property-asset-contract-address" attribute`
+
+    <br/>
+
+    c. Choose what NFT collection you want to receive:
+      - Get a Single NFT
+      `Define one token id in "data-dh-property-asset-token-id" attribute`
+
+      - Get a list of specific NFTs
+      `Define a list of token ids separated by comma in "data-dh-property-asset-token-id" attribute`
+
+      - Get all NFTs
+      `Don't need to define any special attribute`
+
+<br/>
+
+2. Define another element anywhere you want:
+   a. Define one div with the **same** tag id
+   b. In that element define the attribute **data-dh-property-asset-item** without a value
+   c. Inside that element define all the children elements you desire
+   d. Define per children element each json path `data-dh-property-asset-json-path="image_url"`
+
+Example:
+
+```html
+<div
+  data-dh-feature="nft"
+  data-dh-property-tag-id="033"
+  data-dh-property-asset-token-id="101817,101778,101695"
+  data-dh-property-asset-contract-address="0x06012c8cf97bead5deae237070f9587f8e7a266d"
+>
+  <div data-dh-property-tag-id="033" data-dh-property-asset-item class="component-div">
+    <img data-dh-property-asset-json-path="image_url" />
+    <h3 data-dh-property-asset-json-path="name"></h3>
+  </div>
+</div>
+```
 
 ### Attributes
 
@@ -645,7 +693,7 @@ export const features = {
 - [x] User
 - [x] 3Box
 - [x] Custom Contract
-- [ ] NFT
+- [x] NFT
 
 ## Roadmap
 
