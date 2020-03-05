@@ -47,19 +47,6 @@ export type Property = {
 
 export type Properties = Property[];
 
-/*
-(void | {
-    element: (void | {
-        element: Element;
-        id: string;
-    })[];
-    id: string;
-} | {
-    element: Element;
-    id: string;
-})[]
- */
-
 export type ChildrenElement =
   | {
       id: string;
