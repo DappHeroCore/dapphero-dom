@@ -8,18 +8,25 @@ export const DATA_PROPERTY = `${DATA_PREFIX}-property`;
 
 export const DATA_MODIFIER = `${DATA_PREFIX}-modifier`;
 
+export const ELEMENT_TYPES = {
+  text: 'text',
+  image: 'image',
+  audio: 'audio',
+  video: 'video',
+};
+
 export const TAG_TYPES = {
-  H1: 'text',
-  H2: 'text',
-  H3: 'text',
-  H4: 'text',
-  H5: 'text',
-  H6: 'text',
-  P: 'text',
-  DIV: 'text',
-  SPAN: 'text',
-  IMG: 'image',
-  AUDIO: 'audio',
-  VIDEO: 'video',
-  DEFAULT: 'text',
+  H1: ELEMENT_TYPES.text,
+  H2: ELEMENT_TYPES.text,
+  H3: ELEMENT_TYPES.text,
+  H4: ELEMENT_TYPES.text,
+  H5: ELEMENT_TYPES.text,
+  H6: ELEMENT_TYPES.text,
+  P: ELEMENT_TYPES.text,
+  DIV: ELEMENT_TYPES.text,
+  SPAN: ELEMENT_TYPES.text,
+  IMG: ELEMENT_TYPES.image,
+  AUDIO: ELEMENT_TYPES.audio,
+  VIDEO: ELEMENT_TYPES.video,
+  DEFAULT: ELEMENT_TYPES.text,
 };

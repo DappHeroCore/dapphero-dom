@@ -4,7 +4,7 @@ import shortid from 'shortid';
 import { Features } from './lib/types';
 
 // Constants
-import { DATA_FEATURE } from './lib/constants';
+import { DATA_FEATURE, DATA_PROPERTY, ELEMENT_TYPES, TAG_TYPES } from './lib/constants';
 
 // Getters
 import {
@@ -139,11 +139,13 @@ function parseActiveElements(features: Features, projectData) {
   }));
 }
 
-// Run core logic
+// Exports from library
 export const getDomElements = (projectData) => {
   const parsedActiveElements = parseActiveElements(FEATURES, projectData);
   return parsedActiveElements;
 };
+
+export { TAG_TYPES, ELEMENT_TYPES, DATA_PROPERTY };
 
 // Test:
 // const data = require('../mock.json');

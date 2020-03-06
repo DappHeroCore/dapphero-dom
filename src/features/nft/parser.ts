@@ -58,7 +58,7 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
 
     return {
       element: childNode,
-      type: TAG_TYPES[childNode.tagName] ?? TAG_TYPES.DEFAULT,
+      type: TAG_TYPES[childNode.tagName] || TAG_TYPES.DEFAULT,
       jsonPath: childNode.getAttribute(`data-dh-property-asset-json-path`),
     };
   });
