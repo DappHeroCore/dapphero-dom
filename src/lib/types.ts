@@ -1,3 +1,5 @@
+import { TAG_TYPES } from './constants';
+
 export type AvailableFeatures = 'network' | 'user' | 'customContract' | 'threebox' | 'nft';
 
 export type DataProperty = {
@@ -43,10 +45,12 @@ export type Property = {
   value: string;
 };
 
+export type Properties = Property[];
+
 export type ChildrenElement =
   | {
       id: string;
-      element: HTMLElement;
+      element: Element;
     }
   | ChildrenElement[];
 
@@ -88,4 +92,55 @@ export type AvailableProperties = {
 
 export type AvailableFeaturesMap = {
   [key in AvailableFeatures]?: AvailableFeatures;
+};
+
+export type tagTypes = typeof TAG_TYPES;
+
+/* Custom Contract */
+export type CustomContract = {
+  contract: ProjectContract;
+  hasInputs: boolean;
+  hasOutputs: boolean;
+  isTransaction: boolean;
+  childrenElements?: any;
+};
+
+/* NFT */
+export type nftItemChildren = {
+  element: HTMLElement;
+  type: keyof tagTypes;
+};
+
+export type nftItem = {
+  root?: HTMLElement;
+  childrens?: nftItemChildren[];
+};
+
+export type NFT = {
+  tokens: string[];
+  item: nftItem;
+};
+
+export type ProjectData = {
+  contracts: ProjectContract[];
+};
+
+export type ProjectContract = {
+  contractName: string;
+  contractAddress: string;
+  contractAbi: ContractABI[];
+};
+
+export type ContractABI = {
+  name: string;
+  inputs: Put[];
+  outputs: Put[];
+  type: string;
+  stateMutability: string;
+};
+
+export type Put = {
+  name: string;
+  type: string;
+  internalType: string;
 };

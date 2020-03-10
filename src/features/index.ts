@@ -2,12 +2,14 @@
 import { Features } from '../lib/types';
 
 // Features
-import { user } from './user/index';
-import { threebox } from './3box/index';
-import { network } from './network/index';
-import { customContract } from './customContract/index';
+import { nft } from './nft';
+import { user } from './user';
+import { threebox } from './3box';
+import { network } from './network';
+import { customContract } from './customContract';
 
 export const FEATURES: Features = {
+  nft,
   user,
   network,
   threebox,
