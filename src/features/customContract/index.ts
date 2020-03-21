@@ -41,6 +41,13 @@ export const customContract = {
       position: null,
     },
     {
+      id: 'autoClear',
+      attribute: `${DATA_PROPERTY}-auto-clear`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'inputName',
       attribute: `${DATA_PROPERTY}-input-name`,
       required: false,
