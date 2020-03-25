@@ -15,6 +15,7 @@ describe('Test nft dataAttribute', () => {
 describe('Test nft dataProperties', () => {
   const properties = [
     'tagId',
+    'assetLink',
     'assetTokenId',
     'assetOwnerAddress',
     'assetContractAddress',
