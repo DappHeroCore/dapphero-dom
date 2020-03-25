@@ -22,6 +22,7 @@ export const TAG_TYPES = {
   H4: ELEMENT_TYPES.text,
   H5: ELEMENT_TYPES.text,
   H6: ELEMENT_TYPES.text,
+  A: ELEMENT_TYPES.text,
   P: ELEMENT_TYPES.text,
   DIV: ELEMENT_TYPES.text,
   SPAN: ELEMENT_TYPES.text,

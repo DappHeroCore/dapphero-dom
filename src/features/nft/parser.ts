@@ -7,6 +7,27 @@ import { createAttributeSelector } from '../../lib/utils';
 // Types
 import { Features, Properties, NFT } from '../../lib/types';
 
+const parseNode = (node) => {
+  if (node.hasAttribute(`data-dh-property-asset-link`)) {
+    return {
+      isLink: true,
+      element: node,
+      type: TAG_TYPES[node.tagName] || TAG_TYPES.DEFAULT,
+    };
+  }
+
+  if (!node.hasAttribute(`data-dh-property-asset-json-path`)) {
+    return console.error(`An json path has to be defined in each element`);
+  }
+
+  return {
+    isLink: false,
+    element: node,
+    type: TAG_TYPES[node.tagName] || TAG_TYPES.DEFAULT,
+    jsonPath: node.getAttribute(`data-dh-property-asset-json-path`),
+  };
+};
+
 export const nftParser = (properties: Properties, features: Features): NFT | void => {
   const nft: NFT = { tokens: [], item: { root: null, childrens: null } };
 
@@ -52,15 +73,11 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
 
   // Parse NFT item childrens to get element, type, and jsonPath
   const childrens = Array.from(nftItemAsset.children).map((childNode) => {
-    if (!childNode.hasAttribute(`data-dh-property-asset-json-path`)) {
-      return console.error(`An json path has to be defined in each element`);
+    if (childNode.hasAttribute(`data-dh-property-asset-link`)) {
+      return [childNode, ...Array.from(childNode.children)].map(parseNode);
     }
 
-    return {
-      element: childNode,
-      type: TAG_TYPES[childNode.tagName] || TAG_TYPES.DEFAULT,
-      jsonPath: childNode.getAttribute(`data-dh-property-asset-json-path`),
-    };
+    return parseNode(childNode);
   });
 
   Object.assign(nft.item, { root: nftItemAsset, childrens });

@@ -20,6 +20,13 @@ export const nft = {
       position: null,
     },
     {
+      id: 'assetLink',
+      attribute: `${DATA_PROPERTY}-asset-link`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'assetOwnerAddress',
       attribute: `${DATA_PROPERTY}-asset-owner-address`,
       required: false,
