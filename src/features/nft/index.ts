@@ -13,6 +13,20 @@ export const nft = {
       position: null,
     },
     {
+      id: 'paginationLimit',
+      attribute: `${DATA_PROPERTY}-pagination-limit`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
+      id: 'paginationOffset',
+      attribute: `${DATA_PROPERTY}-pagination-offset`,
+      required: false,
+      validator: null,
+      position: null,
+    },
+    {
       id: 'assetTokenId',
       attribute: `${DATA_PROPERTY}-asset-token-id`,
       required: false,

@@ -8,14 +8,24 @@ import { createAttributeSelector } from '../../lib/utils';
 import { Features, Properties, NFT } from '../../lib/types';
 
 export const nftParser = (properties: Properties, features: Features): NFT | void => {
-  const nft: NFT = { tokens: [], item: { root: null, childrens: null } };
+  const nft: NFT = {
+    tokens: [],
+    pagination: { limit: 20, offset: 0 },
+    item: { root: null, childrens: null },
+  };
 
   const tagIdKey = properties.find((property) => property.key === 'tagId');
+  const paginationLimitKey = properties.find((property) => property.key === 'paginationLimit');
+  const paginationOffsetKey = properties.find((property) => property.key === 'paginationOffset');
   const assetTokenIdKey = properties.find((property) => property.key === 'assetTokenId');
   const assetOwnerAddressKey = properties.find((property) => property.key === 'assetOwnerAddress');
   const assetContractAddressKey = properties.find((property) => property.key === 'assetContractAddress');
 
   const tagId = tagIdKey?.value;
+
+  const paginationLimit = paginationLimitKey?.value;
+  const paginationOffset = paginationOffsetKey?.value;
+
   const tokenIds = assetTokenIdKey?.value;
   const assetOwnerAddress = assetOwnerAddressKey?.value;
   const assetContractAddress = assetContractAddressKey?.value;
@@ -33,6 +43,28 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
   // Parse tokenIds
   if (tokenIds) {
     nft.tokens = tokenIds.split(',');
+  }
+
+  // Check pagination values
+  if (paginationLimit && paginationOffset) {
+    const limit = Number(paginationLimit);
+    const offset = Number(paginationOffset);
+
+    const isPaginationLimitInteger = Number.isInteger(limit);
+    const isPaginationOffsetInteger = Number.isInteger(offset);
+
+    if (!isPaginationLimitInteger) {
+      console.warn(`Pagination limit should be an integer`);
+    }
+
+    if (!isPaginationOffsetInteger) {
+      console.warn(`Pagination offset should be an integer`);
+    }
+
+    Object.assign(nft.pagination, {
+      limit: isPaginationLimitInteger ? limit : nft.pagination.limit,
+      offset: isPaginationOffsetInteger ? offset : nft.pagination.offset,
+    });
   }
 
   // Get NFTs children properties
