@@ -10,8 +10,8 @@ import { Features, Properties, NFT } from '../../lib/types';
 export const nftParser = (properties: Properties, features: Features): NFT | void => {
   const nft: NFT = {
     tokens: [],
-    pagination: { limit: 20, offset: 0 },
     item: { root: null, childrens: null },
+    pagination: { limit: 20, offset: 0, elements: [] },
   };
 
   const tagIdKey = properties.find((property) => property.key === 'tagId');
@@ -76,7 +76,8 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
     (element) => !element.hasAttribute(`data-dh-feature`),
   );
 
-  const nftItemAsset = nftChildrens?.[0];
+  const nftItemAsset = nftChildrens.find((element) => element.hasAttribute(`data-dh-property-asset-item`));
+  const nftRestChildrens = nftChildrens.filter((element) => !element.hasAttribute(`data-dh-property-asset-item`));
 
   if (!nftItemAsset) {
     return console.error(`An NFT asset item should be defined`);
@@ -95,7 +96,16 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
     };
   });
 
+  // Parse NFT item to get pagination elements
+  const paginationElements = nftRestChildrens.filter(
+    (element) =>
+      element.hasAttribute(`data-dh-property-pagination-prev`) ||
+      element.hasAttribute(`data-dh-property-pagination-next`),
+  );
+
+  // Update nft object
   Object.assign(nft.item, { root: nftItemAsset, childrens });
+  Object.assign(nft.pagination, { elements: paginationElements });
 
   return nft;
 };

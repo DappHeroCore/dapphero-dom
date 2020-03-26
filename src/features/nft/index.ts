@@ -63,6 +63,22 @@ export const nft = {
       position: null,
       type: 'children',
     },
+    {
+      id: 'prevPage',
+      attribute: `${DATA_PROPERTY}-pagination-prev`,
+      required: false,
+      validator: null,
+      position: null,
+      type: 'children',
+    },
+    {
+      id: 'nextPage',
+      attribute: `${DATA_PROPERTY}-pagination-next`,
+      required: false,
+      validator: null,
+      position: null,
+      type: 'children',
+    },
   ],
   dataModifiers: [],
 };

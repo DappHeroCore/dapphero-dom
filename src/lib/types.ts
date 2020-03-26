@@ -119,6 +119,7 @@ export type nftItem = {
 export type Pagination = {
   limit: number;
   offset: number;
+  elements?: HTMLElement[];
 };
 
 export type NFT = {
