@@ -46,7 +46,7 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
   }
 
   // Check pagination values
-  if (paginationLimit && paginationOffset) {
+  if (paginationLimit || paginationOffset) {
     const limit = Number(paginationLimit);
     const offset = Number(paginationOffset);
 
