@@ -16,7 +16,7 @@ export const customContractParser = (
 
     // Check if contract name exists in DOM
     if (!contractNameKey || !contractNameKey.value) {
-      return console.error(`Contract name should be specified`);
+      return console.error(`(DH-DOM) | Contract name should be specified`);
     }
 
     // Check if contract name exists in ABI
@@ -24,17 +24,17 @@ export const customContractParser = (
     const contract = projectData.contracts.find((contract) => contract.contractName === contractName);
 
     if (!contract) {
-      return console.error(`Contract "${contractName}" does not exists on your project`);
+      return console.error(`(DH-DOM) | Contract "${contractName}" does not exists on your project`);
     }
 
     // Check if method name exists in DOM
     if (!methodNameKey || !methodNameKey.value) {
-      return console.error(`Method name should be specified`);
+      return console.error(`(DH-DOM) | Method name should be specified`);
     }
 
     // Check if method id exists in DOM
     if (!methodIdKey || !methodIdKey.value) {
-      return console.error(`Method id should be specified`);
+      return console.error(`(DH-DOM) | Method id should be specified`);
     }
 
     // Get contract
@@ -46,7 +46,7 @@ export const customContractParser = (
     const contractMethod = contractABI.find((method) => methodName.startsWith(method.name));
 
     if (!contractMethod) {
-      return console.error(`Method name "${methodName}" does not exists on the contract ABI`);
+      return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
     }
 
     const isTransaction = contractMethod.stateMutability !== 'view';

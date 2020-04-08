@@ -68,14 +68,14 @@ function parseActiveElements(features: Features, projectData) {
         const feature = element.getAttribute(DATA_FEATURE);
 
         if (!feature) {
-          return console.error(`Feature attribute was not added to the element`);
+          return console.error(`(DH-DOM) | Feature attribute was not added to the element`);
         }
 
         // Check to see if feature is on the allowed list
         const isAllowedFeature = availableFeatures[feature];
 
         if (!isAllowedFeature) {
-          return console.error(`Feature "${feature}" not allowed`);
+          return console.error(`(DH-DOM) | Feature "${feature}" not allowed`);
         }
 
         const dataElementProperties = getDataElementProperties(dataset);
