@@ -116,9 +116,16 @@ export type nftItem = {
   childrens?: nftItemChildren[];
 };
 
+export type Pagination = {
+  limit: number;
+  offset: number;
+  elements?: HTMLElement[];
+};
+
 export type NFT = {
   tokens: string[];
   item: nftItem;
+  pagination: Pagination;
 };
 
 export type ProjectData = {
