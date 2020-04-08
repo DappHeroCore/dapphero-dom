@@ -22,12 +22,14 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
 
   // Check if tag id exists in DOM
   if (!tagId) {
-    return console.error(`Tag id should be specified`);
+    return console.error(`(DH-DOM) | Tag id should be specified`);
   }
 
   // Check if we have asset owner address when token ids are defined
   if (tokenIds && !(assetOwnerAddress || assetContractAddress)) {
-    return console.error(`Asset owner or asset contract address should be specified when a token id it's defined`);
+    return console.error(
+      `(DH-DOM) | Asset owner or asset contract address should be specified when a token id it's defined`,
+    );
   }
 
   // Parse tokenIds
@@ -47,13 +49,13 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
   const nftItemAsset = nftChildrens?.[0];
 
   if (!nftItemAsset) {
-    return console.error(`An NFT asset item should be defined`);
+    return console.error(`(DH-DOM) | An NFT asset item should be defined`);
   }
 
   // Parse NFT item childrens to get element, type, and jsonPath
   const childrens = Array.from(nftItemAsset.children).map((childNode) => {
     if (!childNode.hasAttribute(`data-dh-property-asset-json-path`)) {
-      return console.error(`An json path has to be defined in each element`);
+      return console.error(`(DH-DOM) | A json path has to be defined in each element`);
     }
 
     return {

@@ -70,14 +70,14 @@ export const getModifiers = (dataset, availableFeaturesModifiers, dataAttributes
       const isModifier = availableModifiers.modifiers.includes(key);
 
       if (!isModifier) {
-        return console.error(`Modifier "${key}" is not allowed on Feature "${feature}"`);
+        return console.error(`(DH-DOM) | Modifier "${key}" is not allowed on Feature "${feature}"`);
       }
 
       const validator = availableModifiers.validators[key];
       const isValid = validator(value);
 
       if (!isValid) {
-        return console.error(`Modifier "${key}" with value "${value}" is not valid`);
+        return console.error(`(DH-DOM) | Modifier "${key}" with value "${value}" is not valid`);
       }
 
       return true;
@@ -98,7 +98,7 @@ export const getProperties = (
       const isPropertyAllowed = availableFeatureProperties.includes(key);
 
       if (!isPropertyAllowed) {
-        return console.error(`Property "${key}" is not allowed on Feature "${feature}"`);
+        return console.error(`(DH-DOM) | Property "${key}" is not allowed on Feature "${feature}"`);
       }
 
       return isPropertyAllowed;
