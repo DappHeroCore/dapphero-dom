@@ -14,6 +14,25 @@
   </head>
 
   <body class="container">
+    <!-- ERC721 - List of all NFTs -->
+    <div class="headline">ERC721 - List of NFTs from an Owner</div>
+    <div class="headline">With Owner Account address</div>
+
+    <div
+      data-dh-feature="nft"
+      data-dh-property-tag-id="032z"
+      data-dh-property-asset-owner-address="$CURRENT_USER"
+      data-dh-property-asset-contract-address="0x1d963688fe2209a98db35c67a041524822cf04ff"
+      class="parent"
+    >
+      <div data-dh-property-tag-id="032z" data-dh-property-asset-item class="child">
+        <img data-dh-property-asset-json-path="image_url" width="100px" class="nftImage" />
+        <div>
+          <p data-dh-property-asset-json-path="name"></p>
+        </div>
+      </div>
+    </div>
+
     <!-- ERC721 - Single NFT -->
     <div class="headline">ERC721 - Single NFT from an Owner</div>
     <div class="headline">With Owner Account address and Token id</div>
@@ -30,7 +49,7 @@
       </div>
     </div>
 
-    <hr style="margin-bottom: 65px" />
+    <hr style="margin-bottom: 65px;" />
 
     <!-- ERC721 - List of specific NFTs -->
     <div class="headline">ERC721 - List of specific NFTs from an Owner</div>
@@ -50,7 +69,7 @@
       <button data-dh-property-tag-id="031" data-dh-property-pagination-next>next</button>
     </div>
 
-    <hr style="margin-bottom: 65px" />
+    <hr style="margin-bottom: 65px;" />
 
     <!-- ERC721 - List of NFTs -->
     <div class="headline">ERC721 - List of NFTs from an Owner</div>
@@ -67,7 +86,7 @@
       </div>
     </div>
 
-    <hr style="margin-bottom: 65px" />
+    <hr style="margin-bottom: 65px;" />
 
     <!-- ERC721 - List of specific NFTs from a contract -->
     <div class="headline">ERC721 - List of NFTs from an Contract</div>
@@ -85,7 +104,7 @@
       </div>
     </div>
 
-    <hr style="margin-bottom: 65px" />
+    <hr style="margin-bottom: 65px;" />
 
     <!-- ERC721 - List of NFTs from a contract -->
     <div class="headline">ERC721 - List of NFTs from an Contract</div>
@@ -102,7 +121,7 @@
       </div>
     </div>
 
-    <hr style="margin-bottom: 65px" />
+    <hr style="margin-bottom: 65px;" />
 
     <!-- To test: Parcel build -->
     <script src="../index.ts"></script>
