@@ -7,7 +7,18 @@ export const createAttributeSelector = (key: string, property?: string, separato
   return `[${key}]`;
 };
 
-export const getElementDataset = (element: HTMLElement) => Object.assign({}, element.dataset);
+export const getElementDataset = (element: HTMLElement): { dhEnabled?: 'true' | 'false' } => {
+  const dataset = Object.assign({}, element.dataset);
+  const elementDataset = {};
+
+  for (const key in dataset) {
+    if (key.startsWith('dh')) {
+      elementDataset[key] = dataset[key];
+    }
+  }
+
+  return elementDataset;
+};
 
 export const getAttributeMode = (dataset: DOMStringMap) => (isEmpty(dataset) ? 'id' : 'data');
 
