@@ -86,17 +86,13 @@ export const nftParser = (properties: Properties, features: Features): NFT | voi
   }
 
   // Parse NFT item childrens to get element, type, and jsonPath
-  const childrens = Array.from(nftItemAsset.children).map((childNode) => {
-    if (!childNode.hasAttribute(`data-dh-property-asset-json-path`)) {
-      return console.error(`(DH-DOM) | A json path has to be defined in each element`);
-    }
-
-    return {
+  const childrens = Array.from(nftItemAsset.querySelectorAll(`[data-dh-property-asset-json-path]`)).map(
+    (childNode) => ({
       element: childNode,
       type: TAG_TYPES[childNode.tagName] || TAG_TYPES.DEFAULT,
       jsonPath: childNode.getAttribute(`data-dh-property-asset-json-path`),
-    };
-  });
+    }),
+  );
 
   // Parse NFT item to get pagination elements
   const paginationElements = nftRestChildrens.filter(
