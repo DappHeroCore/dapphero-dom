@@ -60,8 +60,8 @@ function parseActiveElements(features: Features, projectData) {
 
       if (attributeMode === 'data') {
         // Disable DH engine if there is a data-dh-enabled=false attribute
-        const enabled = dataset.dhEnabled;
-        const isDisabled = enabled && enabled === 'false';
+        const enabled = dataset?.dhEnabled;
+        const isDisabled = enabled === 'false';
         if (isDisabled) return null;
 
         // get the value of the data-dh-feature attribute
