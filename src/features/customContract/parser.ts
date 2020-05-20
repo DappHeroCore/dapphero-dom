@@ -47,7 +47,7 @@ export const customContractParser = (
     // Check if method name exists in ABI
     const methodId = methodIdKey.value;
     const methodName = methodNameKey.value;
-    const contractMethod = contractABI.find((method) => methodName.startsWith(method.name));
+    const contractMethod = contractABI.find((method) => methodName === method.name);
 
     if (!contractMethod) {
       return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
