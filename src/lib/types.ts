@@ -143,6 +143,7 @@ export type ContractABI = {
   inputs: Put[];
   outputs: Put[];
   type: string;
+  constant?: boolean;
   stateMutability: string;
 };
 

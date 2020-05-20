@@ -49,7 +49,10 @@ export const customContractParser = (
       return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
     }
 
-    const isTransaction = contractMethod.stateMutability !== 'view';
+    const type = contractMethod?.type ?? '';
+    const constant = contractMethod?.constant ?? false;
+
+    const isTransaction = !constant && type !== 'constructor' && type !== 'event';
     const hasOutputs = contractMethod.outputs.length > 0;
 
     // Get customContract children properties
