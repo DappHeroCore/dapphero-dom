@@ -1,3 +1,6 @@
+// Constants
+import { DATA_PROPERTY } from '../../lib/constants';
+
 // Utils
 import { createAttributeSelector } from '../../lib/utils';
 
@@ -51,8 +54,9 @@ export const customContractParser = (
 
     const type = contractMethod?.type ?? '';
     const constant = contractMethod?.constant ?? false;
+    const stateMutability = contractMethod?.stateMutability ?? '';
 
-    const isTransaction = !constant && type !== 'constructor' && type !== 'event';
+    const isTransaction = !constant && type !== 'constructor' && type !== 'event' && stateMutability !== 'view';
     const hasOutputs = contractMethod.outputs.length > 0;
 
     // Get customContract children properties
@@ -74,6 +78,7 @@ export const customContractParser = (
           const parsedInputs = inputs
             .map((input) => {
               const value = input.getAttribute(property.attribute);
+              const shouldAutoClear = input.getAttribute(`${DATA_PROPERTY}-auto-clear`) === 'true';
 
               // Check each input name in ABI equals to the value defined in the DOM
               const isInputFound = contractMethod.inputs.some((input) => input.name === value);
@@ -96,6 +101,7 @@ export const customContractParser = (
               return {
                 element: input,
                 id: property.id,
+                shouldAutoClear,
                 argumentName: value,
               };
             })
