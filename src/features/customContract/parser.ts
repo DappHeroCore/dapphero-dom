@@ -123,6 +123,7 @@ export const customContractParser = (
                 );
               }
 
+
               return {
                 element: input,
                 id: property.id,
