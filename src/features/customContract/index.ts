@@ -1,5 +1,5 @@
 // Constants
-import { DATA_FEATURE, DATA_PROPERTY, DATA_MODIFIER } from '../../lib/constants';
+import { DATA_FEATURE, DATA_PROPERTY, DATA_MODIFIER, ETHER_UNITS } from '../../lib/constants';
 
 export const customContract = {
   id: 'customContract',
@@ -85,13 +85,13 @@ export const customContract = {
       id: 'displayUnits',
       defaultValue: 'ether',
       attribute: `${DATA_MODIFIER}-display-units`,
-      validator: (value) => ['wei', 'ether'].includes(value),
+      validator: (value) => ETHER_UNITS.includes(value),
     },
     {
       id: 'contractUnits',
       defaultValue: 'wei',
       attribute: `${DATA_MODIFIER}-contract-units`,
-      validator: (value) => ['wei', 'ether'].includes(value),
+      validator: (value) => ETHER_UNITS.includes(value),
     },
     {
       id: 'displayDecimals',
