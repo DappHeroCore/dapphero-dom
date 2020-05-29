@@ -79,10 +79,8 @@ export const customContractParser = (
               // we need to check if the start of value is [ and the end is ] and the middle item is a number. 
               const getIsArray = (value) => {
                 if (value.charAt(0) === '[' && value.charAt(value.length - 1) === ']' && !isNaN(value.substring(1, value.length - 1))) {
-                  console.log("Is an integer!", value)
                   return parseInt(value.substring(1, value.length - 1), 10)
                 } else {
-                  console.log("Not an integer!", value)
                   return false
                 }
               }
@@ -125,12 +123,6 @@ export const customContractParser = (
                 );
               }
 
-              console.log({
-                element: input,
-                id: property.id,
-                shouldAutoClear,
-                argumentName: value,
-              })
               return {
                 element: input,
                 id: property.id,
