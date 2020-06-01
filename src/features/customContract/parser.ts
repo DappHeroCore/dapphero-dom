@@ -47,10 +47,31 @@ export const customContractParser = (
     // Check if method name exists in ABI
     const methodId = methodIdKey.value;
     const methodName = methodNameKey.value;
-    const contractMethod = contractABI.find((method) => methodName === method.name);
+    const contractMethods = contractABI.filter((method) => methodName === method.name);
 
-    if (!contractMethod) {
+    // If no contract methods are found, return error
+    if (contractMethods.length === 0) {
       return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
+    }
+
+    // placeholder for the contract method we will be working with.
+    let contractMethod
+
+    //If we are over loaded, check how many inputs this method has.
+    if (contractMethods.length > 1) {
+
+      //Get all the inputs for the Method.
+      const contractInputs = Array.from(
+        document.querySelectorAll(createAttributeSelector(`data-dh-property-method-id`, methodId)),
+      ).filter((element) => !(element.getAttribute('id') || '').includes('dh')).filter((element) => element.nodeName === 'INPUT')
+
+      //Get the method that has the number of imputs which matches
+      contractMethod = contractMethods.filter((method) => method.inputs.length === contractInputs.length)[0]
+
+      //If the number of inputs does not match either function, then it's an error. 
+      if (!contractMethod) {
+        return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
+      }
     }
 
     const isTransaction = contractMethod.stateMutability !== 'view';
@@ -91,10 +112,10 @@ export const customContractParser = (
 
               // Check each input name in ABI equals to the value defined in the DOM
               const isInputFound = contractMethod.inputs.some((input) => {
-                if(input.name === value) return true
+                if (input.name === value) return true
                 //check if the actually array value is less than or equal to the input array length
                 //note that a zero position value would evaluate falsey, hense we deep equal to false. 
-                if(inputArrayValue !== false && inputArrayValue <= contractMethod.inputs.length-1) {
+                if (inputArrayValue !== false && inputArrayValue <= contractMethod.inputs.length - 1) {
                   return true
                 }
                 // There is no match for input name, or for array possition, so return false.
@@ -104,7 +125,7 @@ export const customContractParser = (
               // Now that we know it's an array, check if the array value is valid. 
               // Note we will have to also check if ALL the array inputs are found.
               // Note you could also mix&match the array idnex with a named input (Or too complicated?)
-              
+
               const emptyString = '$true';
               const isEmptyString = value === emptyString;
 
