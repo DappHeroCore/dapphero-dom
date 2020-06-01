@@ -55,11 +55,10 @@ export const customContractParser = (
     }
 
     // placeholder for the contract method we will be working with.
-    let contractMethod
+    let contractMethod = contractABI.find((method) => methodName === method.name);
 
     //If we are over loaded, check how many inputs this method has.
     if (contractMethods.length > 1) {
-
       //Get all the inputs for the Method.
       const contractInputs = Array.from(
         document.querySelectorAll(createAttributeSelector(`data-dh-property-method-id`, methodId)),
@@ -69,12 +68,18 @@ export const customContractParser = (
       contractMethod = contractMethods.filter((method) => method.inputs.length === contractInputs.length)[0]
 
       //If the number of inputs does not match either function, then it's an error. 
-      if (!contractMethod) {
-        return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
-      }
+    }
+    
+    if (!contractMethod) {
+      return console.error(`(DH-DOM) | Method name "${methodName}" does not exists on the contract ABI`);
     }
 
-    const isTransaction = contractMethod.stateMutability !== 'view';
+
+    // Transactions are transactions if they are not view, pure or constant
+    const isTransaction = !Boolean(['view', 'pure', 'constant'].filter(el => contractMethod.stateMutability === el).length)
+    // console.log("isTransaction", isTransaction)
+
+    // const isTransaction = contractMethod.stateMutability !== 'view';
     const hasOutputs = contractMethod.outputs.length > 0;
 
     // Get customContract children properties
@@ -130,8 +135,9 @@ export const customContractParser = (
               const isEmptyString = value === emptyString;
 
               if (!['EthValue', emptyString].includes(value) && !isInputFound) {
+
                 return console.error(
-                  `(DH-DOM) Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                  `(DH-DOM) * Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
                 );
               }
 
@@ -173,6 +179,7 @@ export const customContractParser = (
               )}`,
             );
           }
+
           const parsedChilrenElements = childrenElements.map((childrenElement) => {
             if (property.attribute.endsWith('output-name')) {
               const value = childrenElement.getAttribute(property.attribute);
@@ -194,6 +201,7 @@ export const customContractParser = (
           const childrenElement = contractElements.find((contractElement) =>
             contractElement.hasAttribute(property.attribute),
           );
+
 
           // TODO: [DEV-121] Figure out why validation fails when output-name is not included
           if (!childrenElement) {
