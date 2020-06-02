@@ -75,25 +75,50 @@ export const customContractParser = (
           const parsedInputs = inputs
             .map((input) => {
               const value = input.getAttribute(property.attribute);
+
+              // we need to check if the start of value is [ and the end is ] and the middle item is a number. 
+              const getIsArray = (value) => {
+                if (value.charAt(0) === '[' && value.charAt(value.length - 1) === ']' && !isNaN(value.substring(1, value.length - 1))) {
+                  return parseInt(value.substring(1, value.length - 1), 10)
+                } else {
+                  return false
+                }
+              }
+
+              const inputArrayValue = getIsArray(value)
+
               const shouldAutoClear = input.getAttribute(`${DATA_PROPERTY}-auto-clear`) === 'true'
 
               // Check each input name in ABI equals to the value defined in the DOM
-              const isInputFound = contractMethod.inputs.some((input) => input.name === value);
+// check if the actual array value is less than or equal to the input array length
+/ note that a zero position value would evaluate falsy, hence we deep equal to false.
 
+const isInputArrayValueValid = inputArrayValue !== false && inputArrayValue <= contractMethod.inputs.length-1
+
+const isInputFound = contractMethod.inputs.some(({ name }) => name === value || isInputArrayValueValid);
+
+              // Now that we know it's an array, check if the array value is valid. 
+              // Note we will have to also check if ALL the array inputs are found.
+              // Note you could also mix&match the array idnex with a named input (Or too complicated?)
+              
               const emptyString = '$true';
               const isEmptyString = value === emptyString;
 
               if (!['EthValue', emptyString].includes(value) && !isInputFound) {
                 return console.error(
-                  `Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
+                  `(DH-DOM) Input name "${value}" for method ${methodName} does not exists on the contract ABI`,
                 );
               }
 
+              // TODO: [DEV-312] This is part of the error for anonymous inputs
               if (isEmptyString && contractMethod.inputs.length > 1) {
                 return console.error(
-                  `Input with empty string (anonymous input) cannot be set since exists more than one input on the contract ABI`,
+                  `(DH-DOM) Input with empty string (anonymous input) 
+                  cannot be set since exists more than one input on the contract ABI, 
+                  use Array input array Index. (See documentation: docs.dapphero.io) `,
                 );
               }
+
 
               return {
                 element: input,
