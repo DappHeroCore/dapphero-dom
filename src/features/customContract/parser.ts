@@ -90,16 +90,12 @@ export const customContractParser = (
               const shouldAutoClear = input.getAttribute(`${DATA_PROPERTY}-auto-clear`) === 'true'
 
               // Check each input name in ABI equals to the value defined in the DOM
-              const isInputFound = contractMethod.inputs.some((input) => {
-                if(input.name === value) return true
-                //check if the actually array value is less than or equal to the input array length
-                //note that a zero position value would evaluate falsey, hense we deep equal to false. 
-                if(inputArrayValue !== false && inputArrayValue <= contractMethod.inputs.length-1) {
-                  return true
-                }
-                // There is no match for input name, or for array possition, so return false.
-                return false
-              });
+// check if the actual array value is less than or equal to the input array length
+/ note that a zero position value would evaluate falsy, hence we deep equal to false.
+
+const isInputArrayValueValid = inputArrayValue !== false && inputArrayValue <= contractMethod.inputs.length-1
+
+const isInputFound = contractMethod.inputs.some(({ name }) => name === value || isInputArrayValueValid);
 
               // Now that we know it's an array, check if the array value is valid. 
               // Note we will have to also check if ALL the array inputs are found.
