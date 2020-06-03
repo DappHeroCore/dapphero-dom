@@ -77,7 +77,6 @@ export const customContractParser = (
 
     // Transactions are transactions if they are not view, pure or constant
     const isTransaction = !Boolean(['view', 'pure', 'constant'].filter(el => contractMethod.stateMutability === el).length)
-    // console.log("isTransaction", isTransaction)
 
     // const isTransaction = contractMethod.stateMutability !== 'view';
     const hasOutputs = contractMethod.outputs.length > 0;
